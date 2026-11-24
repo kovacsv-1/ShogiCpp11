@@ -2,6 +2,9 @@
 
 Kétjátékos Shogi (japán sakk) SDL2 felülettel. A szabálymotor C++11 + STL, az SDL csak az `src/ui` rétegben van.
 
+**Leltöltés:**
+[https://github.com/kovacsv-1/ShogiCpp11/releases/](https://github.com/kovacsv-1/ShogiCpp11/releases/) ShogiCpp11-windows.zip
+
 **Dokumentáció:** [docs/DOCUMENTATION.md](docs/DOCUMENTATION.md) (architektúra, modern C++ térkép).  
 API (Doxygen): a gyökérben `doxygen Doxyfile` → `docs/api/html/index.html`.
 
