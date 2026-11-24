@@ -61,16 +61,33 @@ jobs:
           # copied. SDL2_image / SDL2_ttf pull libpng, freetype, libjxl, …
           # A short hardcoded list leaves those out and Windows refuses to start.
           $PSNativeCommandUseErrorActionPreference = $false
-          $mingwBin = $null
+          # setup-msys2 puts MinGW on PATH for the msys shell. This step is pwsh,
+          # which does not inherit that, so also probe the default install root.
+          $probe = New-Object System.Collections.Generic.List[string]
           foreach ($dir in ($env:PATH -split ';')) {
-            if (-not $dir) { continue }
-            $dir = $dir.TrimEnd('\')
-            if ((Test-Path (Join-Path $dir 'objdump.exe')) -and (Test-Path (Join-Path $dir 'SDL2.dll'))) {
+            if ($dir) { $probe.Add($dir.Trim().Trim('"').TrimEnd('\')) }
+          }
+          foreach ($extra in @(
+            'C:\msys64\mingw64\bin',
+            'D:\msys64\mingw64\bin',
+            (Join-Path $env:SystemDrive 'msys64\mingw64\bin')
+          )) {
+            if ($extra -and -not $probe.Contains($extra)) { $probe.Add($extra) }
+          }
+          $mingwBin = $null
+          foreach ($dir in $probe) {
+            if ((Test-Path -LiteralPath (Join-Path $dir 'objdump.exe')) -and
+                (Test-Path -LiteralPath (Join-Path $dir 'SDL2.dll'))) {
               $mingwBin = $dir
               break
             }
           }
-          if (-not $mingwBin) { throw 'mingw64 bin (objdump.exe + SDL2.dll) not on PATH' }
+          if (-not $mingwBin) {
+            Write-Host 'PATH:'
+            $env:PATH -split ';' | ForEach-Object { Write-Host "  $_" }
+            throw 'mingw64 bin (objdump.exe + SDL2.dll) not found on PATH or under \msys64\mingw64\bin'
+          }
+          Write-Host "MinGW bin: $mingwBin"
           $objdump = Join-Path $mingwBin 'objdump.exe'
           $system32 = Join-Path $env:SystemRoot 'System32'
 
@@ -97,6 +114,8 @@ jobs:
                 Copy-Item -LiteralPath $src -Destination (Join-Path $root $dll) -Force
                 [void]$copied.Add($dll)
                 $queue.Enqueue((Join-Path $root $dll))
+              } elseif ($dll -match '^(?i)(api-ms-win-|ext-ms-)') {
+                # API set. The loader resolves it; there is no file to ship.
               } elseif (-not (Test-Path -LiteralPath (Join-Path $system32 $dll))) {
                 throw "Required DLL not in MinGW bin or System32: $dll (imported by $modLeaf)"
               }
