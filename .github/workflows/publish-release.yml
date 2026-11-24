@@ -29,7 +29,7 @@ jobs:
             mingw-w64-x86_64-SDL2_image
             mingw-w64-x86_64-SDL2_ttf
             zip
-            mingw-w64-x86_64-ntldd
+            mingw-w64-x86_64-binutils
 
       - name: Build Shogi.exe (Release)
         run: |
@@ -52,53 +52,72 @@ jobs:
 
           Copy-Item 'build/Shogi.exe' (Join-Path $root 'Shogi.exe')
 
-          # Launcher at zip root — sets working dir so assets/ and engine/ resolve.
-          # (A .lnk would embed an absolute path and break after unzip.)
-          @(
-            '@echo off'
-            'cd /d "%~dp0"'
-            'start "" "%~dp0Shogi.exe"'
-          ) | Set-Content -Encoding ascii (Join-Path $root 'Shogi.bat')
-
           Copy-Item -Recurse 'assets' (Join-Path $root 'assets')
           New-Item -ItemType Directory -Force -Path (Join-Path $root 'engine') | Out-Null
           Copy-Item 'engine/fairy-stockfish-largeboard_x86-64-modern.exe' `
             (Join-Path $root 'engine/fairy-stockfish-largeboard_x86-64-modern.exe')
 
-          # Runtime DLLs next to the exe (from MinGW64 + ldd-style walk).
-          $mingwBin = 'C:\msys64\mingw64\bin'
-          $exe = Join-Path $root 'Shogi.exe'
-          $needed = New-Object 'System.Collections.Generic.HashSet[string]'
-          foreach ($name in @(
-            'SDL2.dll','SDL2_image.dll','SDL2_ttf.dll',
-            'libgcc_s_seh-1.dll','libstdc++-6.dll','libwinpthread-1.dll'
-          )) { [void]$needed.Add($name) }
+          # Every non-system DLL imported by Shogi.exe or by a DLL we already
+          # copied. SDL2_image / SDL2_ttf pull libpng, freetype, libjxl, …
+          # A short hardcoded list leaves those out and Windows refuses to start.
+          $PSNativeCommandUseErrorActionPreference = $false
+          $mingwBin = $null
+          foreach ($dir in ($env:PATH -split ';')) {
+            if (-not $dir) { continue }
+            $dir = $dir.TrimEnd('\')
+            if ((Test-Path (Join-Path $dir 'objdump.exe')) -and (Test-Path (Join-Path $dir 'SDL2.dll'))) {
+              $mingwBin = $dir
+              break
+            }
+          }
+          if (-not $mingwBin) { throw 'mingw64 bin (objdump.exe + SDL2.dll) not on PATH' }
+          $objdump = Join-Path $mingwBin 'objdump.exe'
+          $system32 = Join-Path $env:SystemRoot 'System32'
 
-          $ntldd = Join-Path $mingwBin 'ntldd.exe'
-          if (Test-Path $ntldd) {
-            & $ntldd -R $exe 2>$null | ForEach-Object {
-              if ($_ -match '=>\s+(.+\\)?([^\\]+\.dll)\s') {
-                [void]$needed.Add($Matches[2])
-              } elseif ($_ -match '^\s*([A-Za-z0-9_+\-.]+\.dll)\b') {
-                [void]$needed.Add($Matches[1])
+          function Get-PeImports([string]$path) {
+            $names = New-Object System.Collections.Generic.List[string]
+            foreach ($line in (& $objdump -p $path 2>&1)) {
+              if ($line -match 'DLL Name:\s+(\S+)') {
+                $names.Add($Matches[1])
+              }
+            }
+            return $names
+          }
+
+          $copied = New-Object 'System.Collections.Generic.HashSet[string]' ([StringComparer]::OrdinalIgnoreCase)
+          $queue = New-Object System.Collections.Generic.Queue[string]
+          $queue.Enqueue((Join-Path $root 'Shogi.exe'))
+          while ($queue.Count -gt 0) {
+            $mod = $queue.Dequeue()
+            $modLeaf = Split-Path $mod -Leaf
+            foreach ($dll in (Get-PeImports $mod)) {
+              if ($copied.Contains($dll)) { continue }
+              $src = Join-Path $mingwBin $dll
+              if (Test-Path -LiteralPath $src) {
+                Copy-Item -LiteralPath $src -Destination (Join-Path $root $dll) -Force
+                [void]$copied.Add($dll)
+                $queue.Enqueue((Join-Path $root $dll))
+              } elseif (-not (Test-Path -LiteralPath (Join-Path $system32 $dll))) {
+                throw "Required DLL not in MinGW bin or System32: $dll (imported by $modLeaf)"
               }
             }
           }
 
-          foreach ($dll in $needed) {
-            $src = Join-Path $mingwBin $dll
-            if (Test-Path $src) {
-              Copy-Item $src (Join-Path $root $dll) -Force
+          foreach ($must in @('SDL2.dll', 'SDL2_image.dll', 'SDL2_ttf.dll')) {
+            if (-not (Test-Path -LiteralPath (Join-Path $root $must))) {
+              throw "Player package is missing $must"
             }
           }
+          Write-Host "Bundled $($copied.Count) DLLs"
+          $copied | Sort-Object | ForEach-Object { Write-Host "  $_" }
 
           @"
           Shogi — Windows player package
           ==============================
-          Double-click  Shogi.bat  (or Shogi.exe).
+          Double-click Shogi.exe.
 
           Keep this folder together: Shogi.exe, the .dll files, assets\, and engine\.
-          Working directory must be this folder (Shogi.bat does that for you).
+          The program uses the folder that contains Shogi.exe.
           "@.Trim() | Set-Content -Encoding utf8 (Join-Path $root 'README.txt')
 
           # Sanity: no source / tests / docs leaked into the player tree.
@@ -111,7 +130,8 @@ jobs:
           Add-Type -AssemblyName System.IO.Compression.FileSystem
           $zipPath = Join-Path $env:GITHUB_WORKSPACE 'ShogiCpp11-windows.zip'
           if (Test-Path $zipPath) { Remove-Item $zipPath -Force }
-          # $false => entries at archive root (Shogi.bat / Shogi.exe / assets / …)
+          if (Test-Path (Join-Path $root 'Shogi.bat')) { throw 'player package must not contain Shogi.bat' }
+          # $false => entries at archive root (Shogi.exe / DLLs / assets / …)
           [System.IO.Compression.ZipFile]::CreateFromDirectory($root, $zipPath, 'Optimal', $false)
           Get-Item $zipPath | Format-List FullName, Length
 
@@ -127,7 +147,7 @@ jobs:
           Auto-built from the ``release`` branch (``$short``).
 
           ### Assets
-          - **ShogiCpp11-windows.zip** — player package (no source). Unzip, double-click ``Shogi.bat`` (or ``Shogi.exe``). Includes ``assets/``, Fairy-Stockfish under ``engine/``, and required DLLs.
+          - **ShogiCpp11-windows.zip** — player package (no source). Unzip, double-click ``Shogi.exe``. Includes ``assets/``, Fairy-Stockfish under ``engine/``, and the MinGW / SDL DLLs the exe imports.
           - **Source code (zip)** / **Source code (tar.gz)** — full repository snapshot for this tag (build with Code::Blocks / MinGW; see README).
           "@
           gh release delete $tag --yes 2>$null

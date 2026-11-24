@@ -6,6 +6,19 @@
 #include "ui/sdl_raii.hpp"
 #include "ui/view.hpp"
 
+#ifdef _WIN32
+#ifndef WIN32_LEAN_AND_MEAN
+#define WIN32_LEAN_AND_MEAN
+#endif
+#ifndef NOMINMAX
+#define NOMINMAX
+#endif
+#include <windows.h>
+#else
+#include <sys/stat.h>
+#include <unistd.h>
+#endif
+
 #include <SDL2/SDL.h>
 #include <SDL2/SDL_image.h>
 #include <SDL2/SDL_ttf.h>
@@ -39,11 +52,57 @@ std::string find_font() {
     return candidates[0];
 }
 
+bool assets_in_cwd() {
+#ifdef _WIN32
+    DWORD attr = GetFileAttributesW(L"assets\\sprites");
+    return attr != INVALID_FILE_ATTRIBUTES && (attr & FILE_ATTRIBUTE_DIRECTORY) != 0;
+#else
+    struct stat st;
+    return stat("assets/sprites", &st) == 0 && S_ISDIR(st.st_mode);
+#endif
+}
+
+// Code::Blocks sets the working directory to the project root. The player zip
+// is started by double-click, where that folder is the exe folder — unless a
+// shortcut uses another "Start in". Prefer an existing assets/ tree, and
+// otherwise the directory that contains the executable.
+void use_exe_directory() {
+    if (assets_in_cwd()) {
+        return;
+    }
+#ifdef _WIN32
+    wchar_t buf[MAX_PATH];
+    DWORD n = GetModuleFileNameW(nullptr, buf, MAX_PATH);
+    if (n == 0 || n >= MAX_PATH) {
+        return;
+    }
+    for (DWORD i = n; i > 0; --i) {
+        if (buf[i] == L'\\' || buf[i] == L'/') {
+            buf[i] = L'\0';
+            if (!SetCurrentDirectoryW(buf)) {
+                std::cerr << "Could not set working directory to the executable folder\n";
+            }
+            return;
+        }
+    }
+#else
+    char* base = SDL_GetBasePath();
+    if (!base) {
+        return;
+    }
+    if (chdir(base) != 0) {
+        std::cerr << "Could not set working directory to " << base << '\n';
+    }
+    SDL_free(base);
+#endif
+}
+
 } // namespace
 
 int main(int argc, char* argv[]) {
     (void)argc;
     (void)argv;
+    use_exe_directory();
 
     if (SDL_Init(SDL_INIT_VIDEO | SDL_INIT_EVENTS) != 0) {
         std::cerr << "SDL_Init: " << SDL_GetError() << '\n';
