@@ -92,6 +92,17 @@ jobs:
           $copied = New-Object 'System.Collections.Generic.HashSet[string]' ([StringComparer]::OrdinalIgnoreCase)
           $queue = New-Object System.Collections.Generic.Queue[string]
           $queue.Enqueue((Join-Path $root 'Shogi.exe'))
+          # MSYS2's SDL2 package is sdl2-compat. Its SDL2.dll loads SDL3.dll with
+          # LoadLibrary, so the import walk never sees it. Without that file the
+          # player stops with "Failed loading SDL3 library."
+          foreach ($runtime in @('SDL3.dll')) {
+            $src = Join-Path $mingwBin $runtime
+            if (Test-Path -LiteralPath $src) {
+              Copy-Item -LiteralPath $src -Destination (Join-Path $root $runtime) -Force
+              [void]$copied.Add($runtime)
+              $queue.Enqueue((Join-Path $root $runtime))
+            }
+          }
           while ($queue.Count -gt 0) {
             $mod = $queue.Dequeue()
             $modLeaf = Split-Path $mod -Leaf
@@ -110,7 +121,11 @@ jobs:
             }
           }
 
-          foreach ($must in @('SDL2.dll', 'SDL2_image.dll', 'SDL2_ttf.dll')) {
+          $mustHave = @('SDL2.dll', 'SDL2_image.dll', 'SDL2_ttf.dll')
+          if (Test-Path -LiteralPath (Join-Path $mingwBin 'SDL3.dll')) {
+            $mustHave += 'SDL3.dll'
+          }
+          foreach ($must in $mustHave) {
             if (-not (Test-Path -LiteralPath (Join-Path $root $must))) {
               throw "Player package is missing $must"
             }
@@ -155,7 +170,7 @@ jobs:
           Auto-built from the ``release`` branch (``$short``).
 
           ### Assets
-          - **ShogiCpp11-windows.zip** — player package (no source, no MinGW or SDL2 install). Unzip, double-click ``Shogi.exe``. Includes ``assets/``, Fairy-Stockfish under ``engine/``, and the DLLs the exe needs.
+          - **ShogiCpp11-windows.zip** — player package (no source, no MinGW, SDL2, or SDL3 install). Unzip, double-click ``Shogi.exe``. Includes ``assets/``, Fairy-Stockfish under ``engine/``, and the DLLs the exe needs, including ``SDL3.dll``.
           - **Source code (zip)** / **Source code (tar.gz)** — full repository snapshot for this tag (build with Code::Blocks / MinGW; see README).
           "@
           gh release delete $tag --yes 2>$null
