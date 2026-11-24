@@ -1,0 +1,21 @@
+var searchData=
+[
+  ['game_0',['Game',['../classshogi_1_1_game.html',1,'shogi::Game'],['../classshogi_1_1_game.html#ad92c50f6b3839f94cf843f0275a60d0e',1,'shogi::Game::Game()']]],
+  ['game_2ecpp_1',['game.cpp',['../game_8cpp.html',1,'']]],
+  ['game_2ehpp_2',['game.hpp',['../game_8hpp.html',1,'']]],
+  ['game_5fheader_3',['game_header',['../classshogi_1_1_notation.html#af556cd5e0ec9c245d3c765fb026b616e',1,'shogi::Notation']]],
+  ['game_5fsetup_4',['game_setup',['../classshogi_1_1ui_1_1_piece_set_menu.html#a7c67cd6a5667fc9c84fe694b089ba952',1,'shogi::ui::PieceSetMenu']]],
+  ['game_5fsetup_2ehpp_5',['game_setup.hpp',['../game__setup_8hpp.html',1,'']]],
+  ['gamesetupconfig_6',['GameSetupConfig',['../structshogi_1_1ui_1_1_game_setup_config.html',1,'shogi::ui::GameSetupConfig'],['../structshogi_1_1ui_1_1_game_setup_config.html#a1bfb2dec93661643d6923d216efed43d',1,'shogi::ui::GameSetupConfig::GameSetupConfig()']]],
+  ['gamestatus_7',['GameStatus',['../namespaceshogi.html#a1f7a6ecf641d8d4c0416780de41a1499',1,'shogi']]],
+  ['gave_5fcheck_8',['gave_check',['../structshogi_1_1_history_entry.html#af3c91e7a118f63b2f81488aeb49dbc70',1,'shogi::HistoryEntry']]],
+  ['generate_5fdrops_9',['generate_drops',['../classshogi_1_1_rules.html#a931ac4ba92e7fca992d2a092e8b7c677',1,'shogi::Rules']]],
+  ['generate_5flegal_10',['generate_legal',['../classshogi_1_1_rules.html#a6a64c3ee470fb535f409a816ac9a6f45',1,'shogi::Rules']]],
+  ['generate_5fpiece_5fmoves_11',['generate_piece_moves',['../classshogi_1_1_rules.html#ac5fcfb073fa93aa26bf635458d3a79b8',1,'shogi::Rules']]],
+  ['generate_5fpseudolegal_12',['generate_pseudolegal',['../classshogi_1_1_rules.html#a16d2af41d497db0dca85246ac01faca4',1,'shogi::Rules']]],
+  ['go_5fsfen_13',['go_sfen',['../classshogi_1_1_engine.html#a5fbc591ff614dab5e1838ef0c8f07c90',1,'shogi::Engine::go_sfen()'],['../classshogi_1_1_usi_engine.html#a4bc910347db100c032e7d0e4da70dbb9',1,'shogi::UsiEngine::go_sfen()'],['../classshogi_1_1_random_engine.html#a0b3945afc37a45129f83ebeeabbbe377',1,'shogi::RandomEngine::go_sfen()']]],
+  ['goal_14',['goal',['../structshogi_1_1learn_1_1_learn_level.html#af2ba3ddb213b948e1a96375434ba93be',1,'shogi::learn::LearnLevel']]],
+  ['gold_15',['Gold',['../namespaceshogi.html#a7183cf896895b2a100436aab02f4bc51a9768feb3fdb1f267b06093bc572952dd',1,'shogi']]],
+  ['gote_16',['Gote',['../namespaceshogi.html#a8778a1d5dcfdb451d30e91e8435b068cad83fd68be3a7047d06795e6adb2d65f1',1,'shogi::Gote'],['../namespaceshogi_1_1ui.html#adfac2b53634967929b3150b96ba32090ad83fd68be3a7047d06795e6adb2d65f1',1,'shogi::ui::Gote']]],
+  ['gote_5fhand_5fy_17',['gote_hand_y',['../classshogi_1_1ui_1_1_board_view.html#ab5f2b55e6f7ec08382121a5020094ab7',1,'shogi::ui::BoardView']]]
+];

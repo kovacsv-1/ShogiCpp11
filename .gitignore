@@ -1,0 +1,29 @@
+# Build
+bin/
+obj/
+*.o
+*.exe
+!engine/*.exe
+
+# Coverage / local
+gcov/
+*.gcda
+*.gcno
+*.gcov
+
+# Runtime
+saves/
+learn_scores.txt
+*.kifu
+
+# IDE
+*.depend
+*.layout
+*.cbp.user
+.vscode/
+.idea/
+
+# OS / archives
+Thumbs.db
+Desktop.ini
+*.zip

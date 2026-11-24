@@ -1,0 +1,18 @@
+﻿Shogi project line coverage (gcov)
+Command: tools/run_tests_coverage.ps1
+Note: percentages are for instrumented translation units exercised by test_core.
+Detailed .gcov notes: gcov\
+
+=== Summary (project sources only) ===
+ 86.79%  of  106 lines  src/core/board.cpp
+ 19.19%  of  198 lines  src/core/engine.cpp
+ 30.18%  of  391 lines  src/core/game.cpp
+  0.00%  of   64 lines  src/core/handicap.cpp
+ 15.53%  of  541 lines  src/core/learn.cpp
+  0.00%  of    3 lines  src/core/learn_data.cpp
+ 15.00%  of  100 lines  src/core/notation.cpp
+ 74.00%  of   50 lines  src/core/piece.cpp
+ 77.53%  of  227 lines  src/core/rules.cpp
+ 91.05%  of  324 lines  tests/test_core.cpp
+
+Overall (weighted by line count): 42.67% of 2004 lines

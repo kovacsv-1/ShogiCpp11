@@ -1,0 +1,28 @@
+var searchData=
+[
+  ['rövid_0',['Játékmenet (rövid)',['../index.html#autotoc_md4',1,'']]],
+  ['rövid_20térkép_1',['Modern C++ elemek (rövid térkép)',['../index.html#autotoc_md3',1,'']]],
+  ['randomengine_2',['RandomEngine',['../classshogi_1_1_random_engine.html',1,'shogi::RandomEngine'],['../classshogi_1_1_random_engine.html#aa44d534ff8e8f85f8e05bd119a4faa18',1,'shogi::RandomEngine::RandomEngine()']]],
+  ['randomlegal_3',['RandomLegal',['../namespaceshogi.html#ade079ec4f4bbe861fea6805cdaa4a66da351310bdb9fd3876f3165f409a6ddc49',1,'shogi']]],
+  ['rank_4',['rank',['../structshogi_1_1_square.html#a29b651a1885a15381ba90008e89b18a1',1,'shogi::Square']]],
+  ['rank_5fdiff_5',['rank_diff',['../structshogi_1_1_handicap_settings.html#aa7ca3d005959242b717f064b40f0b0ee',1,'shogi::HandicapSettings::rank_diff'],['../structshogi_1_1ui_1_1_game_setup_config.html#a3118053c702861cea16f104317e0fffb',1,'shogi::ui::GameSetupConfig::rank_diff']]],
+  ['record_6',['record',['../classshogi_1_1learn_1_1_learn_progress.html#a94978e9aca8e71368f2157932a4dac2f',1,'shogi::learn::LearnProgress']]],
+  ['redo_7',['redo',['../classshogi_1_1_game.html#aa9712d2b8dc7527d42bc9acca019a9ff',1,'shogi::Game']]],
+  ['remaining_5fobstacles_8',['remaining_obstacles',['../classshogi_1_1learn_1_1_learn_session.html#a231d0d44fa87d5da362b1d44da8ed71c',1,'shogi::learn::LearnSession']]],
+  ['remove_9',['remove',['../classshogi_1_1_board.html#a1318b4240ae34ef6419a79bf32bdb375',1,'shogi::Board']]],
+  ['render_10',['render',['../classshogi_1_1ui_1_1_input_controller.html#a40eb9bc2204bcc2a6622c94fdf248282',1,'shogi::ui::InputController']]],
+  ['rendererdeleter_11',['RendererDeleter',['../structshogi_1_1ui_1_1_renderer_deleter.html',1,'shogi::ui']]],
+  ['rendererptr_12',['RendererPtr',['../namespaceshogi_1_1ui.html#a607ba2add330d56c99773d4528f3c84f',1,'shogi::ui']]],
+  ['reset_13',['reset',['../classshogi_1_1_game.html#a57576e194983555832549770c0f14368',1,'shogi::Game']]],
+  ['reset_5fhandicap_14',['reset_handicap',['../classshogi_1_1_game.html#ada6f7332a0e4f41613520ebb4ceb3f60',1,'shogi::Game']]],
+  ['reset_5fstarting_15',['reset_starting',['../classshogi_1_1_game.html#ab2f0ebc3aa2b5ccf687f60741c0eb3de',1,'shogi::Game']]],
+  ['resign_16',['resign',['../classshogi_1_1_game.html#a0ff0d1311c38cbd91e279d87db918626',1,'shogi::Game']]],
+  ['resignation_17',['Resignation',['../namespaceshogi.html#a1f7a6ecf641d8d4c0416780de41a1499ad6a0be15cbf0231917aecc53407d7cf2',1,'shogi']]],
+  ['restart_5flevel_18',['restart_level',['../classshogi_1_1learn_1_1_learn_session.html#a0b99eec710fa4312baf56bad1257bab3',1,'shogi::learn::LearnSession']]],
+  ['result_19',['result',['../classshogi_1_1learn_1_1_learn_session.html#ad3aa64c663fe9ba2c6b6989af272de4b',1,'shogi::learn::LearnSession']]],
+  ['rook_20',['Rook',['../namespaceshogi.html#a7183cf896895b2a100436aab02f4bc51a1a415f5ae0f891e49d34821a896b4466',1,'shogi']]],
+  ['rules_21',['Rules',['../classshogi_1_1_rules.html',1,'shogi']]],
+  ['rules_2ecpp_22',['rules.cpp',['../rules_8cpp.html',1,'']]],
+  ['rules_2ehpp_23',['rules.hpp',['../rules_8hpp.html',1,'']]],
+  ['running_24',['running',['../classshogi_1_1_engine.html#ac75c6d058e12d01062708fcca1e70652',1,'shogi::Engine::running()'],['../classshogi_1_1_usi_engine.html#abaf1af495c5862283070a343f914986b',1,'shogi::UsiEngine::running()'],['../classshogi_1_1_random_engine.html#afb00aaca266bd08aefba384ff8728c20',1,'shogi::RandomEngine::running()']]]
+];

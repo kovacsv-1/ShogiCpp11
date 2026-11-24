@@ -1,0 +1,26 @@
+var searchData=
+[
+  ['main_0',['main',['../main_8cpp.html#a0ddf1224851353fc92bfbff6f499fa97',1,'main.cpp']]],
+  ['main_2ecpp_1',['main.cpp',['../main_8cpp.html',1,'']]],
+  ['main_5fminutes_2',['main_minutes',['../structshogi_1_1ui_1_1_game_setup_config.html#a94ea973ec2432766e53f28f18d39d35b',1,'shogi::ui::GameSetupConfig']]],
+  ['make_5fdefault_5fengine_3',['make_default_engine',['../namespaceshogi.html#a7c3b96a8c71b702403368554c22077ea',1,'shogi']]],
+  ['make_5fengine_4',['make_engine',['../namespaceshogi.html#a9a3729829ba6841eb4b942bdf10f32c7',1,'shogi']]],
+  ['make_5fhandicap_5fposition_5',['make_handicap_position',['../namespaceshogi.html#a475c53183cc48f465c22992cffd7792f',1,'shogi']]],
+  ['make_5ftimestamped_5fkifu_5fname_6',['make_timestamped_kifu_name',['../namespaceshogi_1_1ui.html#aef5834c1dbbbb18f18f51261af4f03a5',1,'shogi::ui']]],
+  ['mark_5farrow_7',['mark_arrow',['../classshogi_1_1ui_1_1_sprite_assets.html#a8a635308da5eba360c83407686f7954b',1,'shogi::ui::SpriteAssets']]],
+  ['mark_5fline_8',['mark_line',['../classshogi_1_1ui_1_1_sprite_assets.html#acf7378f7d94316becfb6f1eb1113b1de',1,'shogi::ui::SpriteAssets']]],
+  ['mark_5flineend_9',['mark_lineend',['../classshogi_1_1ui_1_1_sprite_assets.html#ae0bebef00019b091c7ff6ba075caceb0',1,'shogi::ui::SpriteAssets']]],
+  ['mark_5fred_10',['mark_red',['../classshogi_1_1ui_1_1_sprite_assets.html#a9d028765368991a5de0d29b05adb323e',1,'shogi::ui::SpriteAssets']]],
+  ['menu_2ecpp_11',['menu.cpp',['../menu_8cpp.html',1,'']]],
+  ['menu_2ehpp_12',['menu.hpp',['../menu_8hpp.html',1,'']]],
+  ['menuaction_13',['MenuAction',['../namespaceshogi_1_1ui.html#a20c32c3e1cd3badbf109af26208f896d',1,'shogi::ui']]],
+  ['message_14',['message',['../classshogi_1_1_game.html#a31d76fe61d143fef9ab050c324aa3146',1,'shogi::Game::message()'],['../classshogi_1_1learn_1_1_learn_session.html#a0f2fc1a8700a27c7f0ab1462fdf5ad67',1,'shogi::learn::LearnSession::message()']]],
+  ['modern_20c_20elemek_20rövid_20térkép_15',['Modern C++ elemek (rövid térkép)',['../index.html#autotoc_md3',1,'']]],
+  ['move_16',['Move',['../structshogi_1_1_move.html',1,'shogi::Move'],['../structshogi_1_1_move.html#a5736c4b28b588e6e3dc65900788aa5e7',1,'shogi::Move::Move()']]],
+  ['move_17',['move',['../structshogi_1_1_history_entry.html#ad52a01777c831cd7a8352c78772cb528',1,'shogi::HistoryEntry']]],
+  ['move_5fdelivers_5fmate_18',['move_delivers_mate',['../classshogi_1_1_rules.html#a4914c7f26cecf8c1d8e60200e216536a',1,'shogi::Rules']]],
+  ['moved_5fbefore_19',['moved_before',['../structshogi_1_1_history_entry.html#a50f0957a0fbcac9738cfda33e8d29db9',1,'shogi::HistoryEntry']]],
+  ['movegenerator_20',['MoveGenerator',['../classshogi_1_1_game.html#abc6bf952f6262e0416d5691b0a82945b',1,'shogi::Game']]],
+  ['movepicker_21',['MovePicker',['../classshogi_1_1_random_engine.html#a1b1a891e9981a61730ee883dd9116c97',1,'shogi::RandomEngine']]],
+  ['must_5fpromote_5fon_22',['must_promote_on',['../namespaceshogi.html#a838e223fa12eff5adc0674691929470d',1,'shogi']]]
+];

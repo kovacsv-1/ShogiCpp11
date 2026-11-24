@@ -1,0 +1,26 @@
+var searchData=
+[
+  ['backtomenu_0',['BackToMenu',['../namespaceshogi_1_1ui.html#a2efdfab50834c2c5c4234fa79788c897a92579724dac197bc053857509c8deb18',1,'shogi::ui']]],
+  ['best_1',['best',['../classshogi_1_1learn_1_1_learn_progress.html#ae378d1ab6e4190b340784920cce78a92',1,'shogi::learn::LearnProgress']]],
+  ['bishop_2',['Bishop',['../namespaceshogi.html#a7183cf896895b2a100436aab02f4bc51a3aa4584e547efba20238772d4af5c03d',1,'shogi']]],
+  ['board_3',['Board',['../classshogi_1_1_board.html',1,'shogi::Board'],['../classshogi_1_1_board.html#a4ab6b9874be562738b72382f5fa9357b',1,'shogi::Board::Board()'],['../classshogi_1_1_board.html#a895bd299cb8921f7add9e1b60516216e',1,'shogi::Board::Board(Board const &amp;)=default'],['../classshogi_1_1_board.html#a7707d171df4ea15a45585e1e460392b7',1,'shogi::Board::Board(Board &amp;&amp;other) noexcept'],['../namespaceshogi_1_1ui.html#a6aea24f46da6342aa963d8c4bcc9e555a6036d0a8b885529156168b3b69ee03cc',1,'shogi::ui::Board']]],
+  ['board_4',['board',['../classshogi_1_1_game.html#ac894499825d8bec6ad970e3f1eb1a663',1,'shogi::Game::board()'],['../classshogi_1_1learn_1_1_learn_session.html#ab813d33a542ebf26b857f8823efa6055',1,'shogi::learn::LearnSession::board()']]],
+  ['board_2ecpp_5',['board.cpp',['../board_8cpp.html',1,'']]],
+  ['board_2ehpp_6',['board.hpp',['../board_8hpp.html',1,'']]],
+  ['board_5fmarks_2ecpp_7',['board_marks.cpp',['../board__marks_8cpp.html',1,'']]],
+  ['board_5fmarks_2ehpp_8',['board_marks.hpp',['../board__marks_8hpp.html',1,'']]],
+  ['board_5fmove_9',['board_move',['../structshogi_1_1_move.html#ab31b2a7f9d78a0f7fa4d7bedabf64b82',1,'shogi::Move']]],
+  ['board_5forigin_5fx_10',['board_origin_x',['../classshogi_1_1ui_1_1_board_view.html#ae48e2bba4293d79241cdccb50dcebeb7',1,'shogi::ui::BoardView']]],
+  ['board_5forigin_5fy_11',['board_origin_y',['../classshogi_1_1ui_1_1_board_view.html#a65689af4ef6bd0bb7cfeaf9939ed89d5',1,'shogi::ui::BoardView']]],
+  ['boardarrow_12',['BoardArrow',['../structshogi_1_1ui_1_1_board_arrow.html',1,'shogi::ui']]],
+  ['boardmarks_13',['BoardMarks',['../classshogi_1_1ui_1_1_board_marks.html',1,'shogi::ui']]],
+  ['boardview_14',['BoardView',['../classshogi_1_1ui_1_1_board_view.html',1,'shogi::ui::BoardView'],['../classshogi_1_1ui_1_1_board_view.html#ac2a6ae938a98f188973befbfc320f654',1,'shogi::ui::BoardView::BoardView()']]],
+  ['both_5fkings_5fentered_15',['both_kings_entered',['../classshogi_1_1_rules.html#a6544c007659775b13a60042566389469',1,'shogi::Rules']]],
+  ['build_16',['Build',['../index.html#autotoc_md5',1,'']]],
+  ['buttonclaimimpasse_17',['ButtonClaimImpasse',['../namespaceshogi_1_1ui.html#a6aea24f46da6342aa963d8c4bcc9e555a0915b0cd7ab89ae5b4864d48df9864c4',1,'shogi::ui']]],
+  ['buttonload_18',['ButtonLoad',['../namespaceshogi_1_1ui.html#a6aea24f46da6342aa963d8c4bcc9e555a5a1830c179fd9ad26688066543c49c89',1,'shogi::ui']]],
+  ['buttonmenu_19',['ButtonMenu',['../namespaceshogi_1_1ui.html#a6aea24f46da6342aa963d8c4bcc9e555a85038940a9581950b7145583f14e41ae',1,'shogi::ui']]],
+  ['buttonnew_20',['ButtonNew',['../namespaceshogi_1_1ui.html#a6aea24f46da6342aa963d8c4bcc9e555af813741c1381787e6dbc2a6076f86117',1,'shogi::ui']]],
+  ['buttonresign_21',['ButtonResign',['../namespaceshogi_1_1ui.html#a6aea24f46da6342aa963d8c4bcc9e555a25c1e933bbdba087b8fdcb35ad00c242',1,'shogi::ui']]],
+  ['buttonsave_22',['ButtonSave',['../namespaceshogi_1_1ui.html#a6aea24f46da6342aa963d8c4bcc9e555a73d005c94f42260e4355f0ca1eb13c0d',1,'shogi::ui']]]
+];

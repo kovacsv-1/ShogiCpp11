@@ -1,0 +1,14 @@
+var searchData=
+[
+  ['obstacle_5fcount_0',['obstacle_count',['../structshogi_1_1learn_1_1_learn_level.html#aaad58ecfbbe600e0d91be49170d373eb',1,'shogi::learn::LearnLevel']]],
+  ['obstacles_1',['Obstacles',['../namespaceshogi_1_1learn.html#a8b9fb3f63c45ad39babb4285c55cdc18af029790813fb7e6632338c7ae5c4f1e3',1,'shogi::learn']]],
+  ['obstacles_2',['obstacles',['../structshogi_1_1learn_1_1_learn_level.html#aca24ddc0a50d6116923d569e815bf13b',1,'shogi::learn::LearnLevel']]],
+  ['occupied_3',['occupied',['../structshogi_1_1_piece_slot.html#afeb21825a31e94e505a4850364a7cb94',1,'shogi::PieceSlot']]],
+  ['open_4',['open',['../classshogi_1_1ui_1_1_learn_ui.html#a141988851fe87b4fab43300222e2fffc',1,'shogi::ui::LearnUi']]],
+  ['open_5fkifu_5fdialog_5',['open_kifu_dialog',['../namespaceshogi_1_1ui.html#a5bb3be1381debb94619881f2eab07e10',1,'shogi::ui']]],
+  ['operator_21_3d_6',['operator!=',['../structshogi_1_1_piece.html#ad15960ca755bf92f89dfeada08a111a2',1,'shogi::Piece::operator!=()'],['../structshogi_1_1_square.html#a86cbcc39d616fca538386d36a82a8e58',1,'shogi::Square::operator!=()']]],
+  ['operator_28_29_7',['operator()',['../structshogi_1_1ui_1_1_window_deleter.html#a3ca96623a1f87da46952911e796a8a88',1,'shogi::ui::WindowDeleter::operator()()'],['../structshogi_1_1ui_1_1_renderer_deleter.html#a457b87c7299eef20b7f3f039c547f636',1,'shogi::ui::RendererDeleter::operator()()'],['../structshogi_1_1ui_1_1_texture_deleter.html#a3552ff4484fd744e81306e03ba19a46c',1,'shogi::ui::TextureDeleter::operator()()'],['../structshogi_1_1ui_1_1_font_deleter.html#a84fdef10cc3c57a046c13b4665767d23',1,'shogi::ui::FontDeleter::operator()()'],['../structshogi_1_1ui_1_1_surface_deleter.html#a4020ce97b29cc8ba4e42cdc4cafacb71',1,'shogi::ui::SurfaceDeleter::operator()()']]],
+  ['operator_3d_8',['operator=',['../classshogi_1_1_board.html#aac0f97ca1d5f4f6434c86250a1d9f0cd',1,'shogi::Board::operator=(Board const &amp;)=default'],['../classshogi_1_1_board.html#a85c0b3907765c2a9b112d68f543293d7',1,'shogi::Board::operator=(Board &amp;&amp;other) noexcept'],['../classshogi_1_1_usi_engine.html#acf7e8b31d2cefc0687ab6440e3a5c066',1,'shogi::UsiEngine::operator=()']]],
+  ['operator_3d_3d_9',['operator==',['../structshogi_1_1_piece_slot.html#a3af9c9bcdf652ec5a3940bd21935e4f2',1,'shogi::PieceSlot::operator==()'],['../structshogi_1_1_move.html#a8fc6fb7275211e05f6bb8d8632b77e09',1,'shogi::Move::operator==()'],['../classshogi_1_1_board.html#a24e575bb3f61fed21ae0656eefdab085',1,'shogi::Board::operator==()'],['../structshogi_1_1_piece.html#ad8953d995246962ffac0743cdbd934f7',1,'shogi::Piece::operator==()'],['../structshogi_1_1_square.html#afbae9b75a26a553e7330cdb06824aac2',1,'shogi::Square::operator==()'],['../structshogi_1_1ui_1_1_board_arrow.html#ad0a2d68c166d6e1ef85820ca205fa47c',1,'shogi::ui::BoardArrow::operator==()']]],
+  ['opposite_10',['opposite',['../namespaceshogi.html#a6a000bddfc1212b0e10aa1b3a47ad1ff',1,'shogi']]]
+];

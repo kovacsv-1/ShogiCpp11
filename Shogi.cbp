@@ -1,0 +1,97 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes" ?>
+<CodeBlocks_project_file>
+	<FileVersion major="1" minor="6" />
+	<Project>
+		<Option title="Shogi" />
+		<Option pch_mode="2" />
+		<Option compiler="gcc" />
+		<Build>
+			<Target title="Debug">
+				<Option output="bin/Debug/Shogi" prefix_auto="1" extension_auto="1" />
+				<Option object_output="obj/Debug/" />
+				<Option type="1" />
+				<Option compiler="gcc" />
+				<Compiler>
+					<Add option="-g" />
+					<Add option="-std=c++11" />
+				</Compiler>
+			</Target>
+			<Target title="Release">
+				<Option output="bin/Release/Shogi" prefix_auto="1" extension_auto="1" />
+				<Option object_output="obj/Release/" />
+				<Option type="1" />
+				<Option compiler="gcc" />
+				<Compiler>
+					<Add option="-O2" />
+					<Add option="-std=c++11" />
+				</Compiler>
+				<Linker>
+					<Add option="-s" />
+				</Linker>
+			</Target>
+		</Build>
+		<Compiler>
+			<Add option="-Wall" />
+			<Add option="-std=c++11" />
+			<Add directory="D:/CodeBlocks/MinGW/include" />
+			<Add directory="src" />
+		</Compiler>
+		<Linker>
+			<Add library="mingw32" />
+			<Add library="SDL2main" />
+			<Add library="SDL2" />
+			<Add library="SDL2_image" />
+			<Add library="SDL2_ttf" />
+			<Add library="user32" />
+			<Add library="gdi32" />
+			<Add library="winmm" />
+			<Add library="imm32" />
+			<Add library="ole32" />
+			<Add library="oleaut32" />
+			<Add library="version" />
+			<Add library="uuid" />
+			<Add library="setupapi" />
+			<Add library="comdlg32" />
+			<Add directory="D:/CodeBlocks/MinGW/lib" />
+		</Linker>
+		<Unit filename="src/main.cpp" />
+		<Unit filename="src/core/board.cpp" />
+		<Unit filename="src/core/board.hpp" />
+		<Unit filename="src/core/engine.cpp" />
+		<Unit filename="src/core/engine.hpp" />
+		<Unit filename="src/core/game.cpp" />
+		<Unit filename="src/core/game.hpp" />
+		<Unit filename="src/core/handicap.cpp" />
+		<Unit filename="src/core/handicap.hpp" />
+		<Unit filename="src/core/learn.cpp" />
+		<Unit filename="src/core/learn.hpp" />
+		<Unit filename="src/core/learn_data.cpp" />
+		<Unit filename="src/core/notation.cpp" />
+		<Unit filename="src/core/notation.hpp" />
+		<Unit filename="src/core/piece.cpp" />
+		<Unit filename="src/core/piece.hpp" />
+		<Unit filename="src/core/rules.cpp" />
+		<Unit filename="src/core/rules.hpp" />
+		<Unit filename="src/core/types.hpp" />
+		<Unit filename="src/ui/assets.cpp" />
+		<Unit filename="src/ui/assets.hpp" />
+		<Unit filename="src/ui/board_marks.cpp" />
+		<Unit filename="src/ui/board_marks.hpp" />
+		<Unit filename="src/ui/controller.cpp" />
+		<Unit filename="src/ui/controller.hpp" />
+		<Unit filename="src/ui/file_dialog.cpp" />
+		<Unit filename="src/ui/file_dialog.hpp" />
+		<Unit filename="src/ui/game_setup.hpp" />
+		<Unit filename="src/ui/key_repeat.hpp" />
+		<Unit filename="src/ui/learn_ui.cpp" />
+		<Unit filename="src/ui/learn_ui.hpp" />
+		<Unit filename="src/ui/menu.cpp" />
+		<Unit filename="src/ui/menu.hpp" />
+		<Unit filename="src/ui/sdl_raii.hpp" />
+		<Unit filename="src/ui/view.cpp" />
+		<Unit filename="src/ui/view.hpp" />
+		<Extensions>
+			<lib_finder disable_auto="1" />
+		</Extensions>
+	</Project>
+</CodeBlocks_project_file>

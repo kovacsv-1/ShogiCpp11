@@ -1,0 +1,22 @@
+var searchData=
+[
+  ['failure_0',['Failure',['../namespaceshogi_1_1learn.html#ac87a575fd564e19ef74ef8b4fe80a0d0ae139a585510a502bbf1841cf589f5086',1,'shogi::learn']]],
+  ['failure_1',['failure',['../structshogi_1_1learn_1_1_learn_level.html#a28ba2a0709225cae5cf021a5e37a61e5',1,'shogi::learn::LearnLevel']]],
+  ['failurekind_2',['FailureKind',['../namespaceshogi_1_1learn.html#ac8ca0d57344a8e9511ffd2b4db443de8',1,'shogi::learn']]],
+  ['fairystockfish_3',['FairyStockfish',['../namespaceshogi.html#ade079ec4f4bbe861fea6805cdaa4a66dad484069f4466fcc2473f2a7d2af2eb1c',1,'shogi']]],
+  ['file_4',['file',['../structshogi_1_1_square.html#a2c5faf837a7eedaf239b2131628d3e8f',1,'shogi::Square']]],
+  ['file_5fdialog_2ecpp_5',['file_dialog.cpp',['../file__dialog_8cpp.html',1,'']]],
+  ['file_5fdialog_2ehpp_6',['file_dialog.hpp',['../file__dialog_8hpp.html',1,'']]],
+  ['find_5fking_7',['find_king',['../classshogi_1_1_rules.html#a9dc53aa6f1f57f6fabee5fc6e1fa651f',1,'shogi::Rules']]],
+  ['fit_5fin_8',['fit_in',['../classshogi_1_1ui_1_1_sprite_assets.html#adefd6c65923c86763c462e301a54115b',1,'shogi::ui::SpriteAssets']]],
+  ['font_9',['font',['../classshogi_1_1ui_1_1_sprite_assets.html#afd44c3ae84ee7008988d4ade4239e2c2',1,'shogi::ui::SpriteAssets']]],
+  ['font_5fsmall_10',['font_small',['../classshogi_1_1ui_1_1_sprite_assets.html#ada982917ffaf84c87eee97d434d5884b',1,'shogi::ui::SpriteAssets']]],
+  ['font_5ftiny_11',['font_tiny',['../classshogi_1_1ui_1_1_sprite_assets.html#ac5bc5920649103095edc97b3211807aa',1,'shogi::ui::SpriteAssets']]],
+  ['fontdeleter_12',['FontDeleter',['../structshogi_1_1ui_1_1_font_deleter.html',1,'shogi::ui']]],
+  ['fontptr_13',['FontPtr',['../namespaceshogi_1_1ui.html#a9ffc90bb58fd29a2c130eb07f25a7681',1,'shogi::ui']]],
+  ['források_14',['Források',['../index.html#autotoc_md6',1,'']]],
+  ['from_15',['from',['../structshogi_1_1_move.html#a13aff70ad262004122a1ff81779dacc7',1,'shogi::Move::from'],['../structshogi_1_1ui_1_1_board_arrow.html#a3a79c672ec665aab22fe5d7927fd3139',1,'shogi::ui::BoardArrow::from']]],
+  ['from_5findex_16',['from_index',['../structshogi_1_1_square.html#a0257ff58b06b4a27a9e26fc67706dcc7',1,'shogi::Square']]],
+  ['furigoma_5fstarter_17',['furigoma_starter',['../classshogi_1_1_game.html#af6ebafe602f79fad3b19cd2cde92881d',1,'shogi::Game']]],
+  ['furigomapaint_18',['FurigomaPaint',['../structshogi_1_1ui_1_1_furigoma_paint.html',1,'shogi::ui::FurigomaPaint'],['../structshogi_1_1ui_1_1_furigoma_paint.html#a3c3da24cff4689fba0ba52e1d5d870ef',1,'shogi::ui::FurigomaPaint::FurigomaPaint()']]]
+];

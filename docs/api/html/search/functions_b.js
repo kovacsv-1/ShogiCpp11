@@ -1,0 +1,19 @@
+var searchData=
+[
+  ['label_5ffrom_5fpath_0',['label_from_path',['../classshogi_1_1ui_1_1_sprite_assets.html#a9c27da77764302f356b0c2ab9976d541',1,'shogi::ui::SpriteAssets']]],
+  ['last_5fscore_1',['last_score',['../classshogi_1_1learn_1_1_learn_session.html#a06c08e77b8f70c2f2aa625bc7342a0d7',1,'shogi::learn::LearnSession']]],
+  ['learnprogress_2',['LearnProgress',['../classshogi_1_1learn_1_1_learn_progress.html#a273bc27e6055749c1dad6b8c373a11d6',1,'shogi::learn::LearnProgress']]],
+  ['learnsession_3',['LearnSession',['../classshogi_1_1learn_1_1_learn_session.html#a0257f5f6d9e18f23e3174fb32a6970de',1,'shogi::learn::LearnSession']]],
+  ['learnui_4',['LearnUi',['../classshogi_1_1ui_1_1_learn_ui.html#a0aecdac52ae0d9adaac4d20715e0ea45',1,'shogi::ui::LearnUi']]],
+  ['legal_5fmoves_5',['legal_moves',['../classshogi_1_1_game.html#a18ff4d5290c57005bb37b8330e37dea7',1,'shogi::Game']]],
+  ['letter_6',['letter',['../structshogi_1_1_piece.html#aa8b99312e50f2cd02aba3abfbd0793ad',1,'shogi::Piece']]],
+  ['level_7',['level',['../classshogi_1_1learn_1_1_learn_session.html#a569c4a6d65e95a5dc40a196a2bb6d380',1,'shogi::learn::LearnSession']]],
+  ['level_5fcount_8',['level_count',['../classshogi_1_1learn_1_1_learn_session.html#a8ab184c6d9203116e83c5f92d2aa40b8',1,'shogi::learn::LearnSession']]],
+  ['level_5findex_9',['level_index',['../classshogi_1_1learn_1_1_learn_session.html#aad5bbe5245e607b97fd31c32ed29569f',1,'shogi::learn::LearnSession']]],
+  ['load_10',['load',['../classshogi_1_1learn_1_1_learn_progress.html#a5969e16e010e3fb5ad3e2476b52da07a',1,'shogi::learn::LearnProgress']]],
+  ['load_5ffonts_11',['load_fonts',['../classshogi_1_1ui_1_1_sprite_assets.html#ac283e50c9d6add3e6fb9612d11b9ed9b',1,'shogi::ui::SpriteAssets']]],
+  ['load_5fkifu_12',['load_kifu',['../classshogi_1_1_game.html#a91fd5040d47f60d102d2b42152d0a0f0',1,'shogi::Game']]],
+  ['load_5fmark_5fsprites_13',['load_mark_sprites',['../classshogi_1_1ui_1_1_sprite_assets.html#a831b00591e53ecddfbe994e7d692fa3b',1,'shogi::ui::SpriteAssets']]],
+  ['load_5fpiece_5fset_14',['load_piece_set',['../classshogi_1_1ui_1_1_sprite_assets.html#a7fb0087d660cfd4c9f81c7cd17e7e31a',1,'shogi::ui::SpriteAssets']]],
+  ['lose_5fby_5fillegal_15',['lose_by_illegal',['../classshogi_1_1_game.html#a9c6c4582e752276d1e724ef9aa27622f',1,'shogi::Game']]]
+];
