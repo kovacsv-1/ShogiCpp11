@@ -177,6 +177,10 @@ private:
     bool evaluate_failure() const;
     bool opponent_has_capture() const;
     bool opponent_has_unprotected_capture() const;
+    /** After @p capture is played, the learner has a non-drop recapture on that square. */
+    bool player_can_recapture(Move capture) const;
+    /** On a capture/protection failure, play the punishing capture (not onto a king). */
+    void play_failure_capture();
     void maybe_opponent_reply();
     void mark_obstacle(Square to);
     bool no_pieces(Color c) const;

@@ -578,22 +578,66 @@ bool LearnSession::opponent_has_capture() const {
     return false;
 }
 
+bool LearnSession::player_can_recapture(Move capture) const {
+    // A friendly piece does not "attack" a square its own piece occupies, so
+    // square_attacked before the capture never sees a defender. Lishogi asks
+    // whether, after the capture, the learner has a legal recapture there.
+    Board next = board_;
+    Color opp = opposite(player_color_);
+    next.apply(capture, opp);
+    std::vector<Move> replies = Rules::generate_legal(next, player_color_);
+    for (std::size_t i = 0; i < replies.size(); ++i) {
+        if (!replies[i].is_drop && replies[i].to == capture.to) {
+            return true;
+        }
+    }
+    return false;
+}
+
 bool LearnSession::opponent_has_unprotected_capture() const {
     Color opp = opposite(player_color_);
-    auto moves = Rules::generate_legal(board_, opp);
-    for (Move const& m : moves) {
+    std::vector<Move> moves = Rules::generate_legal(board_, opp);
+    for (std::size_t i = 0; i < moves.size(); ++i) {
+        Move const& m = moves[i];
         if (m.is_drop || !board_.at(m.to).occupied) {
             continue;
         }
         if (board_.at(m.to).piece.color != player_color_) {
             continue;
         }
-        // Hanging if the captured square is not defended by the player.
-        if (!Rules::square_attacked(board_, m.to, player_color_)) {
+        if (!player_can_recapture(m)) {
             return true;
         }
     }
     return false;
+}
+
+void LearnSession::play_failure_capture() {
+    LearnLevel const& lv = level();
+    if (lv.failure != FailureKind::AnyCapture && lv.failure != FailureKind::UnprotectedCapture) {
+        return;
+    }
+    Color opp = opposite(player_color_);
+    std::vector<Move> moves = Rules::generate_legal(board_, opp);
+    for (std::size_t i = 0; i < moves.size(); ++i) {
+        Move m = moves[i];
+        if (m.is_drop || !board_.at(m.to).occupied) {
+            continue;
+        }
+        if (board_.at(m.to).piece.color != player_color_) {
+            continue;
+        }
+        if (lv.failure == FailureKind::UnprotectedCapture && player_can_recapture(m)) {
+            continue;
+        }
+        // Lishogi shows the punishing capture unless it would take the king.
+        if (board_.at(m.to).piece.type == PieceType::King) {
+            return;
+        }
+        board_.apply(m, opp);
+        side_ = player_color_;
+        return;
+    }
 }
 
 bool LearnSession::evaluate_success() const {
@@ -766,6 +810,7 @@ bool LearnSession::try_player_move(Move m) {
     }
 
     if (evaluate_failure()) {
+        play_failure_capture();
         result_ = LevelResult::Failure;
         message_ = "Failed — press R to retry";
         return true;
@@ -780,6 +825,7 @@ bool LearnSession::try_player_move(Move m) {
         return true;
     }
     if (evaluate_failure()) {
+        play_failure_capture();
         result_ = LevelResult::Failure;
         message_ = "Failed — press R to retry";
         return true;

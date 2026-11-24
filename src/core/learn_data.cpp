@@ -1,5 +1,5 @@
-// Auto-generated from Lishogi learn stages (AGPL-3.0 attribution: lila/ui/learn).
-// Do not edit by hand — run tools/extract_learn.py
+// Lishogi learn stages (AGPL-3.0, WandererXII/lishogi ui/learn).
+// Goal and stage strings follow translation/dest/learn/en-US.xml.
 #include "learn.hpp"
 
 namespace shogi {
@@ -91,7 +91,7 @@ LearnLevel const levels_0[] = {
 
 LearnLevel const levels_1[] = {
     {
-        "The king is slow — collect the star.",
+        "The king is rather slow.",
         "9/9/9/9/9/9/3K5/9/9 b -",
         3,
         SuccessKind::Obstacles,
@@ -111,7 +111,7 @@ LearnLevel const levels_1[] = {
         "", PieceType::Pawn, Color::Sente, false
     },
     {
-        "King summary — collect the star.",
+        "King can move in any direction, but only by one square.",
         "9/9/9/9/4K4/9/9/9/9 b -",
         2,
         SuccessKind::Obstacles,
@@ -134,7 +134,7 @@ LearnLevel const levels_2[] = {
         "", PieceType::Pawn, Color::Sente, false
     },
     {
-        "Fewer moves = better score.",
+        "The fewer moves you make, the more points you win!",
         "9/9/9/9/1G7/9/9/9/9 b -",
         4,
         SuccessKind::Obstacles,
@@ -144,7 +144,7 @@ LearnLevel const levels_2[] = {
         "", PieceType::Pawn, Color::Sente, false
     },
     {
-        "Fewer moves = better score.",
+        "The fewer moves you make, the more points you win!",
         "9/9/9/9/9/9/9/9/3G5 b -",
         8,
         SuccessKind::Obstacles,
@@ -154,7 +154,7 @@ LearnLevel const levels_2[] = {
         "", PieceType::Pawn, Color::Sente, false
     },
     {
-        "Gold Doesnt Promote",
+        "The gold general together with the king is the only piece you CAN'T promote.",
         "9/9/9/6G2/9/9/9/9/9 b -",
         2,
         SuccessKind::Obstacles,
@@ -164,7 +164,7 @@ LearnLevel const levels_2[] = {
         "", PieceType::Pawn, Color::Sente, false
     },
     {
-        "Gold summary — collect the star.",
+        "Try to remember these moves, many pieces move the same way after they are promoted.",
         "9/9/9/9/9/4G4/9/9/9 b -",
         2,
         SuccessKind::Obstacles,
@@ -197,7 +197,7 @@ LearnLevel const levels_3[] = {
         "", PieceType::Pawn, Color::Sente, false
     },
     {
-        "Fewer moves = better score.",
+        "The fewer moves you make, the more points you win!",
         "9/9/9/9/3S5/6S2/9/9/9 b -",
         5,
         SuccessKind::Obstacles,
@@ -207,7 +207,7 @@ LearnLevel const levels_3[] = {
         "", PieceType::Pawn, Color::Sente, false
     },
     {
-        "Silver Promotion",
+        "When you promote the silver general its movements are the same as the gold general.",
         "9/9/9/6S2/9/9/9/9/9 b -",
         3,
         SuccessKind::Obstacles,
@@ -217,7 +217,7 @@ LearnLevel const levels_3[] = {
         "", PieceType::Pawn, Color::Sente, false
     },
     {
-        "Silver summary — collect the star.",
+        "You will surely remember these moves with some practice.",
         "9/9/9/9/9/4S4/9/9/9 b -",
         2,
         SuccessKind::Obstacles,
@@ -227,7 +227,7 @@ LearnLevel const levels_3[] = {
         "", PieceType::Pawn, Color::Sente, false
     },
     {
-        "Psilver Summary",
+        "Same as the gold general, you will see this a lot.",
         "9/9/9/9/9/4+S4/9/9/9 b -",
         2,
         SuccessKind::Obstacles,
@@ -240,7 +240,7 @@ LearnLevel const levels_3[] = {
 
 LearnLevel const levels_4[] = {
     {
-        "Knights jump — collect the stars.",
+        "Knights have a fancy way of jumping around!",
         "9/9/9/9/9/9/9/9/1N7 b -",
         2,
         SuccessKind::Obstacles,
@@ -250,7 +250,7 @@ LearnLevel const levels_4[] = {
         "", PieceType::Pawn, Color::Sente, false
     },
     {
-        "Knight Promotion",
+        "The knight can also be promoted. Its movements change a lot after that, so pay attention.",
         "9/9/9/9/9/9/9/1N7/9 b -",
         5,
         SuccessKind::Obstacles,
@@ -260,7 +260,7 @@ LearnLevel const levels_4[] = {
         "", PieceType::Pawn, Color::Sente, false
     },
     {
-        "Knight Summary",
+        "The knight can jump in an L shape forward, but only by two squares forward and one square sideways. Its movement also isn't restricted by other pieces - it will just jump over them.",
         "9/9/9/9/9/4N4/9/9/9 b -",
         1,
         SuccessKind::Obstacles,
@@ -270,7 +270,7 @@ LearnLevel const levels_4[] = {
         "", PieceType::Pawn, Color::Sente, false
     },
     {
-        "Pknight Summary",
+        "Promoted knight moves are completely different from the unpromoted knight, but you can notice it moves the same as the gold general, so make sure to study that one thoroughly.",
         "9/9/9/9/9/4+N4/9/9/9 b -",
         2,
         SuccessKind::Obstacles,
@@ -283,7 +283,7 @@ LearnLevel const levels_4[] = {
 
 LearnLevel const levels_5[] = {
     {
-        "Lances Are Straighforward",
+        "Just move forward as much as you can, this should be easy for you.",
         "9/9/9/9/9/9/9/9/4L4 b -",
         2,
         SuccessKind::Obstacles,
@@ -293,7 +293,7 @@ LearnLevel const levels_5[] = {
         "", PieceType::Pawn, Color::Sente, false
     },
     {
-        "Lance Promotion",
+        "After the lance is promoted, it moves differently, but you've already seen this somewhere - same as the gold general.",
         "9/9/9/9/9/9/9/9/L7L b -",
         4,
         SuccessKind::Obstacles,
@@ -303,7 +303,7 @@ LearnLevel const levels_5[] = {
         "", PieceType::Pawn, Color::Sente, false
     },
     {
-        "Lance summary — collect the star.",
+        "Moves forward, this is really easy.",
         "9/9/9/9/9/4L4/9/9/9 b -",
         1,
         SuccessKind::Obstacles,
@@ -313,7 +313,7 @@ LearnLevel const levels_5[] = {
         "", PieceType::Pawn, Color::Sente, false
     },
     {
-        "Plance Summary Two",
+        "The promoted lance moves the same as the gold general.",
         "9/9/9/9/9/4+L4/9/9/9 b -",
         2,
         SuccessKind::Obstacles,
@@ -336,7 +336,7 @@ LearnLevel const levels_6[] = {
         "", PieceType::Pawn, Color::Sente, false
     },
     {
-        "Eh There Is No Piece",
+        "Eh? There is no piece on the board. But look outside the board, a bishop! This area is where the pieces you captured go. You can place the piece back on the board. As usual, grab all the stars.",
         "9/9/9/9/9/9/9/9/9 b B",
         7,
         SuccessKind::Obstacles,
@@ -346,7 +346,7 @@ LearnLevel const levels_6[] = {
         "", PieceType::Pawn, Color::Sente, false
     },
     {
-        "Bishop Promotion",
+        "Promoting your bishop will make it stronger, it will turn into a piece called \"the horse\".",
         "9/9/9/9/9/9/2B6/9/9 b -",
         3,
         SuccessKind::Obstacles,
@@ -356,7 +356,7 @@ LearnLevel const levels_6[] = {
         "", PieceType::Pawn, Color::Sente, false
     },
     {
-        "Bishop summary — collect the star.",
+        "The bishop moves in any diagonal direction.",
         "9/9/9/9/4B4/9/9/9/9 b -",
         1,
         SuccessKind::Obstacles,
@@ -366,7 +366,7 @@ LearnLevel const levels_6[] = {
         "", PieceType::Pawn, Color::Sente, false
     },
     {
-        "Horse Summary",
+        "The promoted bishop moves also diagonally, but it can also go one square up, down, left or right as well.",
         "9/9/9/9/4+B4/9/9/9/9 b -",
         2,
         SuccessKind::Obstacles,
@@ -379,7 +379,7 @@ LearnLevel const levels_6[] = {
 
 LearnLevel const levels_7[] = {
     {
-        "Rook Goal",
+        "Click on the rook to bring it to the star!",
         "9/9/9/9/9/9/9/4R4/9 b -",
         1,
         SuccessKind::Obstacles,
@@ -389,7 +389,7 @@ LearnLevel const levels_7[] = {
         "", PieceType::Pawn, Color::Sente, false
     },
     {
-        "Grab All The Stars Remember",
+        "Grab all the stars! Remember, look outside the board.",
         "9/9/9/9/9/9/9/9/9 b R",
         3,
         SuccessKind::Obstacles,
@@ -399,7 +399,7 @@ LearnLevel const levels_7[] = {
         "", PieceType::Pawn, Color::Sente, false
     },
     {
-        "Rook Promotion",
+        "The rook promotes to the powerful dragon. Don't forget that you can also promote your piece when you leave the promotion zone.",
         "9/7R1/9/9/9/9/9/9/9 b -",
         4,
         SuccessKind::Obstacles,
@@ -409,7 +409,7 @@ LearnLevel const levels_7[] = {
         "", PieceType::Pawn, Color::Sente, false
     },
     {
-        "Rook summary — collect the star.",
+        "The rook can go up, down, left or right as much as it wants.",
         "9/9/9/9/4R4/9/9/9/9 b -",
         1,
         SuccessKind::Obstacles,
@@ -419,7 +419,7 @@ LearnLevel const levels_7[] = {
         "", PieceType::Pawn, Color::Sente, false
     },
     {
-        "Dragon Summary Two",
+        "The dragon can move just like the unpromoted rook, but also one square in any diagonal direction, making it much stronger.",
         "9/9/9/9/4+R4/9/9/9/9 b -",
         2,
         SuccessKind::Obstacles,
@@ -432,7 +432,7 @@ LearnLevel const levels_7[] = {
 
 LearnLevel const levels_8[] = {
     {
-        "Pawns Move One Square Only",
+        "Pawns can move to the square directly in front of them, they capture the same way.",
         "9/9/9/9/9/9/2P6/9/9 b -",
         3,
         SuccessKind::Obstacles,
@@ -442,7 +442,7 @@ LearnLevel const levels_8[] = {
         "", PieceType::Pawn, Color::Sente, false
     },
     {
-        "Pawn Promotion",
+        "The pawn can also be promoted, the moves are once again the same as the gold general.",
         "9/9/9/9/9/9/6P2/9/9 b -",
         5,
         SuccessKind::Obstacles,
@@ -452,7 +452,7 @@ LearnLevel const levels_8[] = {
         "", PieceType::Pawn, Color::Sente, false
     },
     {
-        "Pawn summary — collect the star.",
+        "The pawn is a rather straightforward piece to understand.",
         "9/9/9/9/9/4P4/9/9/9 b -",
         2,
         SuccessKind::Obstacles,
@@ -462,7 +462,7 @@ LearnLevel const levels_8[] = {
         "", PieceType::Pawn, Color::Sente, false
     },
     {
-        "Tokin Summary",
+        "You should already be familiar with this pattern by now.",
         "9/9/9/9/9/4+P4/9/9/9 b -",
         2,
         SuccessKind::Obstacles,
@@ -475,7 +475,7 @@ LearnLevel const levels_8[] = {
 
 LearnLevel const levels_9[] = {
     {
-        "Capture all enemy pieces.",
+        "Take the enemy pieces",
         "9/4n4/9/9/4p4/9/9/4L4/9 b -",
         2,
         SuccessKind::ExtinctGote,
@@ -485,7 +485,7 @@ LearnLevel const levels_9[] = {
         "", PieceType::Pawn, Color::Sente, false
     },
     {
-        "Capture all enemies — don't leave yours hanging!",
+        "Take the enemy pieces! And don't lose yours.",
         "9/9/4nr3/4G4/9/9/9/9/9 b -",
         2,
         SuccessKind::ExtinctGote,
@@ -495,7 +495,7 @@ LearnLevel const levels_9[] = {
         "", PieceType::Pawn, Color::Sente, false
     },
     {
-        "Capture all enemies — don't leave yours hanging!",
+        "Take the enemy pieces! And don't lose yours.",
         "9/9/9/4p4/9/4B1s2/5g3/9/9 b -",
         4,
         SuccessKind::ExtinctGote,
@@ -505,7 +505,7 @@ LearnLevel const levels_9[] = {
         "", PieceType::Pawn, Color::Sente, false
     },
     {
-        "Capture all enemies — don't leave yours hanging!",
+        "Take the enemy pieces! And don't lose yours.",
         "9/3spg3/3p1p3/4N4/9/9/9/9/9 b -",
         5,
         SuccessKind::ExtinctGote,
@@ -515,7 +515,7 @@ LearnLevel const levels_9[] = {
         "", PieceType::Pawn, Color::Sente, false
     },
     {
-        "Capture all enemies — don't leave yours hanging!",
+        "Take the enemy pieces! And don't lose yours.",
         "9/4r1s2/5n3/3R1b3/9/9/9/9/9 b -",
         6,
         SuccessKind::ExtinctGote,
@@ -525,7 +525,7 @@ LearnLevel const levels_9[] = {
         "", PieceType::Pawn, Color::Sente, false
     },
     {
-        "Capture all enemies — don't leave yours hanging!",
+        "Take the enemy pieces! And don't lose yours.",
         "9/5l+p2/4S4/4pp3/9/9/9/9/9 b -",
         7,
         SuccessKind::ExtinctGote,
@@ -538,7 +538,7 @@ LearnLevel const levels_9[] = {
 
 LearnLevel const levels_10[] = {
     {
-        "Get out of check!",
+        "You're under attack! Escape the threat!",
         "9/1r7/9/9/9/2PP5/Pp7/1B7/LNS6 b - 1",
         1,
         SuccessKind::NoOpponentCapture,
@@ -548,7 +548,7 @@ LearnLevel const levels_10[] = {
         "", PieceType::Pawn, Color::Sente, false
     },
     {
-        "Get out of check!",
+        "You're under attack! Escape the threat!",
         "9/9/9/9/7Pb/9/8P/6+p2/3S3RL b - 1",
         1,
         SuccessKind::NoOpponentCapture,
@@ -558,7 +558,7 @@ LearnLevel const levels_10[] = {
         "", PieceType::Pawn, Color::Sente, false
     },
     {
-        "No Escape",
+        "There is no escape, but you can defend!",
         "9/9/2n6/2r6/4P4/2S6/1PBP5/2R6/9 b - 1",
         3,
         SuccessKind::NoUnprotectedCapture,
@@ -568,7 +568,7 @@ LearnLevel const levels_10[] = {
         "", PieceType::Pawn, Color::Sente, false
     },
     {
-        "Make Sure All Safe",
+        "Make sure all your pieces are safe!",
         "9/9/6b2/7R1/9/9/1P7/1S7/9 b - 1",
         1,
         SuccessKind::NoUnprotectedCapture,
@@ -578,7 +578,7 @@ LearnLevel const levels_10[] = {
         "", PieceType::Pawn, Color::Sente, false
     },
     {
-        "Make Sure All Safe",
+        "Make sure all your pieces are safe!",
         "9/9/6n2/9/9/5Pp2/6N2/9/9 b - 1",
         1,
         SuccessKind::NoUnprotectedCapture,
@@ -588,7 +588,7 @@ LearnLevel const levels_10[] = {
         "", PieceType::Pawn, Color::Sente, false
     },
     {
-        "Make Sure All Safe",
+        "Make sure all your pieces are safe!",
         "9/9/7+P1/6s2/5N3/9/9/9/9 b - 1",
         1,
         SuccessKind::NoUnprotectedCapture,
@@ -598,7 +598,7 @@ LearnLevel const levels_10[] = {
         "", PieceType::Pawn, Color::Sente, false
     },
     {
-        "Make Sure All Safe",
+        "Make sure all your pieces are safe!",
         "9/9/9/9/9/9/5G3/9/3+bS4 b - 1",
         1,
         SuccessKind::NoUnprotectedCapture,
@@ -608,7 +608,7 @@ LearnLevel const levels_10[] = {
         "", PieceType::Pawn, Color::Sente, false
     },
     {
-        "Make Sure All Safe",
+        "Make sure all your pieces are safe!",
         "9/9/9/9/3n5/9/2PPS4/3R5/9 b - 1",
         1,
         SuccessKind::NoUnprotectedCapture,
@@ -618,7 +618,7 @@ LearnLevel const levels_10[] = {
         "", PieceType::Pawn, Color::Sente, false
     },
     {
-        "Dont Forget You Can Drop To Defend",
+        "Don't forget that you can drop pieces to defend!",
         "9/9/4S4/9/4r4/9/4G4/9/9 b L 1",
         1,
         SuccessKind::NoUnprotectedCapture,
@@ -628,7 +628,7 @@ LearnLevel const levels_10[] = {
         "", PieceType::Pawn, Color::Sente, false
     },
     {
-        "Dont Forget You Can Drop To Defend",
+        "Don't forget that you can drop pieces to defend!",
         "9/9/9/9/9/3B5/7S1/9/3G3r1 b NLP 1",
         1,
         SuccessKind::NoUnprotectedCapture,
@@ -638,7 +638,7 @@ LearnLevel const levels_10[] = {
         "", PieceType::Pawn, Color::Sente, false
     },
     {
-        "Dont Let Them Take Any Undefended Piece",
+        "Don't let them take any undefended piece!",
         "9/9/9/9/9/9/4P4/4G4/2S2+r3 b NLP 1",
         1,
         SuccessKind::NoUnprotectedCapture,
@@ -648,7 +648,7 @@ LearnLevel const levels_10[] = {
         "", PieceType::Pawn, Color::Sente, false
     },
     {
-        "Dont Let Them Take Any Undefended Piece",
+        "Don't let them take any undefended piece!",
         "9/9/9/9/7S1/7+b1/9/5G3/9 b NLP 1",
         1,
         SuccessKind::NoUnprotectedCapture,
@@ -658,7 +658,7 @@ LearnLevel const levels_10[] = {
         "", PieceType::Pawn, Color::Sente, false
     },
     {
-        "Dont Let Them Take Any Undefended Piece",
+        "Don't let them take any undefended piece!",
         "8l/9/9/7n1/8P/8L/6PP1/6S2/7N1 b LP 1",
         1,
         SuccessKind::NoUnprotectedCapture,
@@ -671,7 +671,7 @@ LearnLevel const levels_10[] = {
 
 LearnLevel const levels_11[] = {
     {
-        "Check In One Goal",
+        "Aim at the opponent's king in one move!",
         "5R3/4Ssk2/5p3/9/7L1/9/9/9/9 b r2b4g2s4n3l17p 3",
         1,
         SuccessKind::CheckGote,
@@ -681,7 +681,7 @@ LearnLevel const levels_11[] = {
         "", PieceType::Pawn, Color::Sente, false
     },
     {
-        "Check In One Goal",
+        "Aim at the opponent's king in one move!",
         "3g5/2rk1g3/pps2pppp/2S6/9/9/9/9/9 b G 1",
         1,
         SuccessKind::CheckGote,
@@ -691,7 +691,7 @@ LearnLevel const levels_11[] = {
         "", PieceType::Pawn, Color::Sente, false
     },
     {
-        "Check In One Goal",
+        "Aim at the opponent's king in one move!",
         "9/9/9/2B2r3/9/4L4/9/9/7k1 b - 1",
         1,
         SuccessKind::CheckGote,
@@ -701,7 +701,7 @@ LearnLevel const levels_11[] = {
         "", PieceType::Pawn, Color::Sente, false
     },
     {
-        "Check In One Goal",
+        "Aim at the opponent's king in one move!",
         "5+B2s/7k1/7N1/6Ss1/9/9/9/9/9 b r2b4g2s4n3l17p 1",
         1,
         SuccessKind::CheckGote,
@@ -711,7 +711,7 @@ LearnLevel const levels_11[] = {
         "", PieceType::Pawn, Color::Sente, false
     },
     {
-        "Check In One Goal",
+        "Aim at the opponent's king in one move!",
         "6snl/4+Rgk2/5pppp/9/9/9/9/9/9 b GSr2b2g2s3n3l14p 1",
         1,
         SuccessKind::CheckGote,
@@ -724,7 +724,7 @@ LearnLevel const levels_11[] = {
 
 LearnLevel const levels_12[] = {
     {
-        "If Your King Is Attacked",
+        "If your king is attacked, you must deal with the attack.",
         "9/9/9/9/4r4/9/9/9/4K4 b - 1",
         1,
         SuccessKind::NotInCheck,
@@ -734,7 +734,7 @@ LearnLevel const levels_12[] = {
         "", PieceType::Pawn, Color::Sente, false
     },
     {
-        "Get out of check!",
+        "Escape with the king!",
         "9/9/9/9/9/9/9/2s1r4/3K5 b - 1",
         1,
         SuccessKind::NotInCheck,
@@ -744,7 +744,7 @@ LearnLevel const levels_12[] = {
         "", PieceType::Pawn, Color::Sente, false
     },
     {
-        "The King Cannot Escape But Block",
+        "The king cannot escape, but you can block the attack!",
         "9/9/9/9/9/9/6PPP/4+r2K1/6SNL b - 1",
         1,
         SuccessKind::NotInCheck,
@@ -754,7 +754,7 @@ LearnLevel const levels_12[] = {
         "", PieceType::Pawn, Color::Sente, false
     },
     {
-        "The King Cannot Escape But Block",
+        "The king cannot escape, but you can block the attack!",
         "9/9/9/9/9/9/6PPP/5+r1K1/7NL b G 1",
         1,
         SuccessKind::NotInCheck,
@@ -764,7 +764,7 @@ LearnLevel const levels_12[] = {
         "", PieceType::Pawn, Color::Sente, false
     },
     {
-        "The King Cannot Escape But Block",
+        "The king cannot escape, but you can block the attack!",
         "9/9/9/9/5b3/9/6B1P/8K/6sNL b P 1",
         1,
         SuccessKind::NotInCheck,
@@ -774,7 +774,7 @@ LearnLevel const levels_12[] = {
         "", PieceType::Pawn, Color::Sente, false
     },
     {
-        "You Can Get Out Of Check By Taking",
+        "You can get out of check by taking the attacking piece.",
         "9/9/9/9/9/9/6PPp/5+p1KP/5GbNL b - 1",
         1,
         SuccessKind::NotInCheck,
@@ -784,7 +784,7 @@ LearnLevel const levels_12[] = {
         "", PieceType::Pawn, Color::Sente, false
     },
     {
-        "Get Out Of Check",
+        "Get out of check!",
         "9/9/9/9/9/9/3Ss4/3s5/3K5 b - 1",
         1,
         SuccessKind::NotInCheck,
@@ -794,7 +794,7 @@ LearnLevel const levels_12[] = {
         "", PieceType::Pawn, Color::Sente, false
     },
     {
-        "Get Out Of Check",
+        "Get out of check!",
         "9/9/9/7p1/8b/4sPK2/6g2/9/9 b - 1",
         1,
         SuccessKind::NotInCheck,
@@ -804,7 +804,7 @@ LearnLevel const levels_12[] = {
         "", PieceType::Pawn, Color::Sente, false
     },
     {
-        "Get Out Of Check",
+        "Get out of check!",
         "9/9/9/6n2/6p2/5Ks2/9/4r4/9 b - 1",
         1,
         SuccessKind::NotInCheck,
@@ -814,7 +814,7 @@ LearnLevel const levels_12[] = {
         "", PieceType::Pawn, Color::Sente, false
     },
     {
-        "Get Out Of Check",
+        "Get out of check!",
         "9/9/9/9/8P/8l/7P1/6rSK/7NL b P 1",
         1,
         SuccessKind::NotInCheck,
@@ -824,7 +824,7 @@ LearnLevel const levels_12[] = {
         "", PieceType::Pawn, Color::Sente, false
     },
     {
-        "Watch Out For Your Opponents Reply",
+        "Watch out for your opponent's reply!",
         "9/9/9/9/9/4b4/PPG6/LS7/K4r3 b L 1",
         1,
         SuccessKind::NotInCheck,
@@ -834,7 +834,7 @@ LearnLevel const levels_12[] = {
         "", PieceType::Pawn, Color::Sente, false
     },
     {
-        "Watch Out For Your Opponents Reply",
+        "Watch out for your opponent's reply!",
         "9/9/9/9/9/5+bn2/5GPPP/6SK1/5G1NL b g 1",
         1,
         SuccessKind::NotInCheck,
@@ -847,7 +847,7 @@ LearnLevel const levels_12[] = {
 
 LearnLevel const levels_13[] = {
     {
-        "To Win In Shogi",
+        "To win in shogi, check your opponent's king such that they cannot defend. This is kmate, or tsume.",
         "6k2/9/6P2/9/9/9/9/9/9 b G2r2b3g4s4n4l17p 1",
         1,
         SuccessKind::Checkmate,
@@ -857,7 +857,7 @@ LearnLevel const levels_13[] = {
         "", PieceType::Pawn, Color::Sente, false
     },
     {
-        "Drops Common Deliver Mate",
+        "Drops are a very common way to deliver mate.",
         "7k1/9/7S1/9/9/9/9/9/9 b S2r2b4g2s4n4l18p 1",
         1,
         SuccessKind::Checkmate,
@@ -867,7 +867,7 @@ LearnLevel const levels_13[] = {
         "", PieceType::Pawn, Color::Sente, false
     },
     {
-        "Put the opponent in check!",
+        "Attack your opponent's king in a way that cannot be defended!",
         "7nk/7bl/9/9/6N2/9/9/9/9 b 2rb4g4s2n3l18p 1",
         1,
         SuccessKind::Checkmate,
@@ -877,7 +877,7 @@ LearnLevel const levels_13[] = {
         "", PieceType::Pawn, Color::Sente, false
     },
     {
-        "Put the opponent in check!",
+        "Attack your opponent's king in a way that cannot be defended!",
         "4R3G/7k1/6ppp/9/9/9/9/9/9 b r2b3g4s4n4l15p 1",
         1,
         SuccessKind::Checkmate,
@@ -887,7 +887,7 @@ LearnLevel const levels_13[] = {
         "", PieceType::Pawn, Color::Sente, false
     },
     {
-        "Put the opponent in check!",
+        "Attack your opponent's king in a way that cannot be defended!",
         "7kl/7s1/6PSp/9/9/9/9/9/9 b 2r2b4g2s4n3l16p 1",
         1,
         SuccessKind::Checkmate,
@@ -897,7 +897,7 @@ LearnLevel const levels_13[] = {
         "", PieceType::Pawn, Color::Sente, false
     },
     {
-        "Put the opponent in check!",
+        "Attack your opponent's king in a way that cannot be defended!",
         "9/5n2+B/5pk2/9/7+R1/9/9/9/9 b rb4g4s3n4l17p 1",
         1,
         SuccessKind::Checkmate,
@@ -907,7 +907,7 @@ LearnLevel const levels_13[] = {
         "", PieceType::Pawn, Color::Sente, false
     },
     {
-        "Put the opponent in check!",
+        "Attack your opponent's king in a way that cannot be defended!",
         "5k3/6s2/5NB2/9/9/9/9/9/9 b 2rb4g3s3n4l18p 2",
         1,
         SuccessKind::Checkmate,
@@ -917,7 +917,7 @@ LearnLevel const levels_13[] = {
         "", PieceType::Pawn, Color::Sente, false
     },
     {
-        "Put the opponent in check!",
+        "Attack your opponent's king in a way that cannot be defended!",
         "4R3l/6g1k/5gsp1/6p1P/9/9/9/9/8L b r2b2g3s4n2l15p 1",
         1,
         SuccessKind::Checkmate,
@@ -927,7 +927,7 @@ LearnLevel const levels_13[] = {
         "", PieceType::Pawn, Color::Sente, false
     },
     {
-        "Choose Your Piece Carefully",
+        "Choose your piece carefully!",
         "8l/6S1k/9/9/8g/9/9/9/9 b GS2r2b2g2s4n3l18p 1",
         1,
         SuccessKind::Checkmate,
@@ -937,7 +937,7 @@ LearnLevel const levels_13[] = {
         "", PieceType::Pawn, Color::Sente, false
     },
     {
-        "Choose Your Piece Carefully",
+        "Choose your piece carefully!",
         "8l/7k1/7pb/7N1/9/9/9/9/9 b RGrb3g4s3n3l17p 1",
         1,
         SuccessKind::Checkmate,
@@ -947,7 +947,7 @@ LearnLevel const levels_13[] = {
         "", PieceType::Pawn, Color::Sente, false
     },
     {
-        "Choose Your Piece Carefully",
+        "Choose your piece carefully!",
         "8l/6+Rgk/7pp/9/9/9/9/9/9 b GSr2b2g3s4n3l16p 1",
         1,
         SuccessKind::Checkmate,
@@ -957,7 +957,7 @@ LearnLevel const levels_13[] = {
         "", PieceType::Pawn, Color::Sente, false
     },
     {
-        "Mate With A Dropped Pawn Is",
+        "Mate with a dropped pawn is illegal — in a real game you would be forfeited!",
         "7+P1/8g/7pk/9/7Sp/9/9/9/9 b LP2r2b3g3s4n3l14p 1",
         1,
         SuccessKind::Checkmate,
@@ -967,7 +967,7 @@ LearnLevel const levels_13[] = {
         "", PieceType::Pawn, Color::Sente, false
     },
     {
-        "Mate With A Pushed Pawn Is",
+        "Mate with a pushed pawn is fine.",
         "7+P1/8g/7pk/9/7SP/9/9/9/9 b 2r2b3g3s4n4l15p 1",
         1,
         SuccessKind::Checkmate,
@@ -977,7 +977,7 @@ LearnLevel const levels_13[] = {
         "", PieceType::Pawn, Color::Sente, false
     },
     {
-        "Put the opponent in check!",
+        "Attack your opponent's king in a way that cannot be defended!",
         "8l/5BSk1/6p1P/9/9/9/9/9/9 b 2rb4g3s4n3l16p 1",
         1,
         SuccessKind::Checkmate,
@@ -987,7 +987,7 @@ LearnLevel const levels_13[] = {
         "", PieceType::Pawn, Color::Sente, false
     },
     {
-        "Put the opponent in check!",
+        "Attack your opponent's king in a way that cannot be defended!",
         "5lk2/8R/5Ps2/6N2/6L2/9/9/9/9 b r2b4g3s3n2l17p 1",
         1,
         SuccessKind::Checkmate,
@@ -997,7 +997,7 @@ LearnLevel const levels_13[] = {
         "", PieceType::Pawn, Color::Sente, false
     },
     {
-        "Put the opponent in check!",
+        "Attack your opponent's king in a way that cannot be defended!",
         "2R3gkl/3R3s1/7p1/7Np/9/9/9/9/9 b 2b3g3s3n3l16p 1",
         1,
         SuccessKind::Checkmate,
@@ -1010,7 +1010,7 @@ LearnLevel const levels_13[] = {
 
 LearnLevel const levels_14[] = {
     {
-        "This Is The Initial Position",
+        "This is the initial position of every game of shogi! Make any move to continue.",
         "lnsgkgsnl/1r5b1/ppppppppp/9/9/9/PPPPPPPPP/1B5R1/LNSGKGSNL b - 1",
         1,
         SuccessKind::Always,
@@ -1020,7 +1020,7 @@ LearnLevel const levels_14[] = {
         "", PieceType::Pawn, Color::Sente, false
     },
     {
-        "First Place The King",
+        "There are two traditional ways of setting up pieces before a game. We will be teaching the Oohashi (大橋) style, most commonly used by professionals. The king goes first. Move the king to the back rank’s center square.",
         "4k4/9/9/9/9/9/9/6K2/9 b RB2G2S2N2L9Prb2g2s2n2l9p 1",
         2,
         SuccessKind::PieceOn,
@@ -1030,7 +1030,7 @@ LearnLevel const levels_14[] = {
         "5i", PieceType::King, Color::Sente, false
     },
     {
-        "Drop A Gold",
+        "Drop a gold on the left side of the king, then place another gold on the right.",
         "4k4/9/9/9/9/9/9/9/4K4 b RB2G2S2N2L9Prb2g2s2n2l9p 1",
         2,
         SuccessKind::Scenario,
@@ -1040,7 +1040,7 @@ LearnLevel const levels_14[] = {
         "", PieceType::Pawn, Color::Sente, false
     },
     {
-        "Then Place A Silver",
+        "Then place the silver next to the left-side gold, and a silver beside the right gold.",
         "3gkg3/9/9/9/9/9/9/9/3GKG3 b RB2S2N2L9Prb2s2n2l9p 1",
         2,
         SuccessKind::Scenario,
@@ -1050,7 +1050,7 @@ LearnLevel const levels_14[] = {
         "", PieceType::Pawn, Color::Sente, false
     },
     {
-        "Drop The Knights",
+        "Drop the knights the same way you placed the silvers. Your opponent will be doing the Itou (伊藤) style.",
         "2sgkgs2/9/9/9/9/9/9/9/2SGKGS2 b RB2N2L9Prb2n2l9p 1",
         2,
         SuccessKind::Scenario,
@@ -1060,7 +1060,7 @@ LearnLevel const levels_14[] = {
         "", PieceType::Pawn, Color::Sente, false
     },
     {
-        "Drop The Lances",
+        "Drop the lances. Your opponent will start placing pawns left-to-right before the lances. This is the Itou style.",
         "1nsgkgsn1/9/9/9/9/9/9/9/1NSGKGSN1 b RB2L9Prb2l9p 1",
         2,
         SuccessKind::Scenario,
@@ -1070,7 +1070,7 @@ LearnLevel const levels_14[] = {
         "", PieceType::Pawn, Color::Sente, false
     },
     {
-        "Place The Bishop Then Rook",
+        "Place the bishop above the left knight, then the rook above the right knight. Of course, in real games there is no need to be in sync with your opponent during setup.",
         "1nsgkgsn1/9/7pp/9/9/9/9/9/LNSGKGSNL b RB9Prb2l7p 1",
         2,
         SuccessKind::Scenario,
@@ -1080,7 +1080,7 @@ LearnLevel const levels_14[] = {
         "", PieceType::Pawn, Color::Sente, false
     },
     {
-        "Place The Pawns",
+        "Finally, on the 3rd rank, drop pawns the same way you placed the back rank pieces. The circle will be your guide.",
         "1nsgkgsn1/9/5pppp/9/9/9/9/1B5R1/LNSGKGSNL b 9Prb2l5p 1",
         17,
         SuccessKind::Scenario,
@@ -1090,7 +1090,7 @@ LearnLevel const levels_14[] = {
         "", PieceType::Pawn, Color::Sente, false
     },
     {
-        "Pushing The3rd Pawn",
+        "Pushing the 3rd pawn to open the bishop’s diagonal is the most common first move. Make this move to continue.",
         "lnsgkgsnl/1r5b1/ppppppppp/9/9/9/PPPPPPPPP/1B5R1/LNSGKGSNL b - 1",
         2,
         SuccessKind::Scenario,
@@ -1103,7 +1103,7 @@ LearnLevel const levels_14[] = {
 
 LearnLevel const levels_15[] = {
     {
-        "Captured pieces can be dropped — clear the board.",
+        "Captured pieces can be dropped back on the board on your turn!",
         "9/9/8r/4n4/9/9/4L4/9/9 b -",
         3,
         SuccessKind::ExtinctGote,
@@ -1113,7 +1113,7 @@ LearnLevel const levels_15[] = {
         "", PieceType::Pawn, Color::Sente, false
     },
     {
-        "Drop limitations — clear the enemies.",
+        "You cannot drop a piece on another piece or where it does not have any legal moves. Dropping a piece in promotion zone doesn't result in promotion. Take the enemy pieces!",
         "9/9/9/9/3nbl3/9/9/9/9 b P",
         6,
         SuccessKind::ExtinctGote,
@@ -1123,7 +1123,7 @@ LearnLevel const levels_15[] = {
         "", PieceType::Pawn, Color::Sente, false
     },
     {
-        "Capture all enemies — don't leave yours hanging!",
+        "Take the enemy pieces! And don't lose yours.",
         "9/9/9/2g1s4/9/9/9/6N2/9 b - 1",
         4,
         SuccessKind::ExtinctGote,
@@ -1133,7 +1133,7 @@ LearnLevel const levels_15[] = {
         "", PieceType::Pawn, Color::Sente, false
     },
     {
-        "Capture all enemies — don't leave yours hanging!",
+        "Take the enemy pieces! And don't lose yours.",
         "9/5p3/4Gl3/9/9/5g3/9/9/9 b - 1",
         4,
         SuccessKind::ExtinctGote,
@@ -1143,7 +1143,7 @@ LearnLevel const levels_15[] = {
         "", PieceType::Pawn, Color::Sente, false
     },
     {
-        "Capture all enemies — don't leave yours hanging!",
+        "Take the enemy pieces! And don't lose yours.",
         "4n4/s3g4/8g/9/4B4/9/9/9/9 b - 1",
         7,
         SuccessKind::ExtinctGote,
@@ -1153,7 +1153,7 @@ LearnLevel const levels_15[] = {
         "", PieceType::Pawn, Color::Sente, false
     },
     {
-        "Capture all enemies — don't leave yours hanging!",
+        "Take the enemy pieces! And don't lose yours.",
         "9/3rn4/5S3/3lp4/9/7b1/9/9/9 b - 1",
         7,
         SuccessKind::ExtinctGote,
@@ -1163,7 +1163,7 @@ LearnLevel const levels_15[] = {
         "", PieceType::Pawn, Color::Sente, false
     },
     {
-        "Capture all enemies — don't leave yours hanging!",
+        "Take the enemy pieces! And don't lose yours.",
         "9/9/2n1r1b2/9/3s1g1R1/9/9/9/9 b - 1",
         8,
         SuccessKind::ExtinctGote,
@@ -1173,7 +1173,7 @@ LearnLevel const levels_15[] = {
         "", PieceType::Pawn, Color::Sente, false
     },
     {
-        "Nifu — clear the enemies without illegal pawn drop.",
+        "You cannot have two unpromoted pawns in the same file.",
         "9/9/4s4/9/9/9/2PP1PP2/9/9 b P 1",
         4,
         SuccessKind::ExtinctGote,
@@ -1183,7 +1183,7 @@ LearnLevel const levels_15[] = {
         "", PieceType::Pawn, Color::Sente, false
     },
     {
-        "Nifu — clear the enemies without illegal pawn drop.",
+        "You cannot have two unpromoted pawns in the same file.",
         "9/4G4/1n2p2b1/9/9/1+P5P1/9/9/9 b - 1",
         5,
         SuccessKind::ExtinctGote,
@@ -1196,7 +1196,7 @@ LearnLevel const levels_15[] = {
 
 LearnLevel const levels_16[] = {
     {
-        "Pawns Are The Least Valuable",
+        "Pawns are the least valuable piece, followed by lances. Knights are slightly more valuable than lances. Take the most valuable piece.",
         "9/9/3pl4/2n1+R4/9/9/9/9/9 b - 1",
         1,
         SuccessKind::ColorOn,
@@ -1206,7 +1206,7 @@ LearnLevel const levels_16[] = {
         "7d", PieceType::Pawn, Color::Sente, false
     },
     {
-        "Knight Silver Gold",
+        "Knight < Silver < Gold Take the most valuable piece without losing your own.",
         "9/9/4ns3/4S4/3g5/9/9/9/9 b - 1",
         1,
         SuccessKind::ColorOn,
@@ -1216,7 +1216,7 @@ LearnLevel const levels_16[] = {
         "4c", PieceType::Pawn, Color::Sente, false
     },
     {
-        "Gold Bishop Rook",
+        "Gold < Bishop < Rook Take the most valuable piece.",
         "9/9/9/5gb2/4p+Bn2/4srl2/4gs3/9/9 b - 1",
         1,
         SuccessKind::ColorOn,
@@ -1226,7 +1226,7 @@ LearnLevel const levels_16[] = {
         "4f", PieceType::Pawn, Color::Sente, false
     },
     {
-        "Take All The Pieces Starting From The Most",
+        "Take all the pieces in order, starting from the most valuable until the least valuable!",
         "9/9/9/3lg4/9/3+R1n3/2r1bp3/2s6/9 b - 1",
         11,
         SuccessKind::ExtinctGote,
@@ -1236,7 +1236,7 @@ LearnLevel const levels_16[] = {
         "", PieceType::Pawn, Color::Sente, false
     },
     {
-        "An Exchange Is",
+        "An exchange is when you capture a piece, and lose another. Which is a better exchange? Silver-for-rook, or gold-for-knight?",
         "9/6k2/3p2g2/3s5/7N1/9/9/3R5/9 b - 1",
         1,
         SuccessKind::ColorOn,
@@ -1246,7 +1246,7 @@ LearnLevel const levels_16[] = {
         "3c", PieceType::Pawn, Color::Sente, false
     },
     {
-        "The Opponent Just Gave Away",
+        "The opponent just gave away their valuable rook for free! Do you take it?",
         "7k1/3r5/6+P+P+P/9/P3n4/2N6/2P6/2K6/L8 b 2g 1",
         2,
         SuccessKind::Scenario,
@@ -1256,7 +1256,7 @@ LearnLevel const levels_16[] = {
         "", PieceType::Pawn, Color::Sente, false
     },
     {
-        "Your Kings Value Is Infinite",
+        "The king's value is infinite, compared to a rook. What is the best move here?",
         "7k1/9/6+P+P+P/9/Pg2n4/2N6/1KP6/3+r5/L2G5 b g 1",
         1,
         SuccessKind::PieceOn,
@@ -1266,7 +1266,7 @@ LearnLevel const levels_16[] = {
         "2b", PieceType::Pawn, Color::Sente, true
     },
     {
-        "Two Generals Are Better",
+        "Two generals can be worth more than one major piece. A knight and lance can be better than a general. Find a way to sacrifice the bishop and win two generals.",
         "l6rl/2k3g2/2ppps3/pp3pp2/2P4pp/P1BP1P3/1P2P1PPP/2S4R1/L1K2G2L b b 1",
         3,
         SuccessKind::Scenario,
@@ -1276,7 +1276,7 @@ LearnLevel const levels_16[] = {
         "", PieceType::Pawn, Color::Sente, false
     },
     {
-        "Remember Which Piece Is The Most Valuable",
+        "Do you remember which piece is the most valuable?",
         "ln+R5l/3r1gks1/5pnp1/2b3p1p/1p7/P3pP2P/1P1+b1GPP1/6SK1/5+p1NL b GSPgsnl3p 1",
         1,
         SuccessKind::Scenario,
@@ -1289,7 +1289,7 @@ LearnLevel const levels_16[] = {
 
 LearnLevel const levels_17[] = {
     {
-        "If The Same Position Occurs",
+        "If the same position occurs 4 times in Shogi, it is an automatic draw. This situation is called sennichite (千日手). Make the only legal move.",
         "9/9/9/9/k8/9/+p8/3+p5/K8 b - 1",
         12,
         SuccessKind::Scenario,
@@ -1299,7 +1299,7 @@ LearnLevel const levels_17[] = {
         "", PieceType::Pawn, Color::Sente, false
     },
     {
-        "Perpetual Check Is A Loss",
+        "But, perpetually checking the opponent's king is a loss for the checking side. Unfortunately for your opponent, they don't know that! Make the only legal move.",
         "3k5/9/1s+P+P+P4/9/P2+b5/KP7/1+b7/9/9 b -",
         12,
         SuccessKind::Scenario,
@@ -1309,7 +1309,7 @@ LearnLevel const levels_17[] = {
         "", PieceType::Pawn, Color::Sente, false
     },
     {
-        "Board Flipped Find Best Move",
+        "The board was just flipped. What is the best move here?",
         "3k5/9/1s+P+P+P4/9/P2+b5/KP+b6/9/9/9 w -",
         3,
         SuccessKind::Scenario,
@@ -1327,63 +1327,63 @@ std::vector<LearnStage> const& all_stages() {
         {
             "intro",
             "Introduction",
-            "Basics",
+            "Let's learn some basics.",
             levels_0,
             3
         },
         {
             "king",
-            "The King",
+            "The king",
             "The most important piece",
             levels_1,
             3
         },
         {
             "gold",
-            "The Gold",
-            "It Moves In Any Direction Except Diagonally Back",
+            "The gold general",
+            "The gold general moves in any direction EXCEPT diagonally back.",
             levels_2,
             5
         },
         {
             "silver",
-            "The Silver",
-            "It Moves Either Forward Or Diagonally Back",
+            "The silver general",
+            "The general moves either forward or diagonally back.",
             levels_3,
             6
         },
         {
             "knight",
-            "The Knight",
-            "It Moves In An L Shape",
+            "The knight",
+            "It moves in an L shape, but only FORWARD!",
             levels_4,
             4
         },
         {
             "lance",
-            "The Lance",
-            "It Moves Straight Forward",
+            "The lance",
+            "It can go only forward.",
             levels_5,
             4
         },
         {
             "bishop",
-            "The Bishop",
-            "It Moves Diagonally",
+            "The bishop",
+            "It moves diagonally",
             levels_6,
             5
         },
         {
             "rook",
-            "The Rook",
-            "It Moves In Straight Lines",
+            "The rook",
+            "It moves in straight lines",
             levels_7,
             5
         },
         {
             "pawn",
-            "The Pawn",
-            "It Moves Forward Only",
+            "The pawn",
+            "March forward!",
             levels_8,
             4
         },
@@ -1397,56 +1397,56 @@ std::vector<LearnStage> const& all_stages() {
         {
             "protection",
             "Protection",
-            "Keep Your Pieces Safe",
+            "Keep your pieces safe",
             levels_10,
             13
         },
         {
             "check1",
-            "Deliver check!",
-            "Attack The Opponents King",
+            "Check in one",
+            "Attack the opponent's king",
             levels_11,
             5
         },
         {
             "out-of-check",
             "Out of check",
-            "Defend so the opponent cannot capture freely.",
+            "Defend your king",
             levels_12,
             12
         },
         {
             "checkmate1",
-            "Checkmate in one!",
-            "Defeat The Opponents King",
+            "Mate in one",
+            "Defeat the opponent's king",
             levels_13,
             16
         },
         {
             "setup",
             "Board setup",
-            "How The Game Starts",
+            "How the game starts",
             levels_14,
             9
         },
         {
             "drop",
             "Piece drops",
-            "Reuse Captured Pieces",
+            "Reuse captured pieces!",
             levels_15,
             9
         },
         {
             "value",
             "Piece value",
-            "Evaluate Piece Strength",
+            "Evaluate piece strength",
             levels_16,
             9
         },
         {
             "repetition",
             "Repetition",
-            "Fourfold Repetition Is A Draw Except",
+            "Fourfold repetition is a draw, EXCEPT...",
             levels_17,
             3
         },
