@@ -508,6 +508,46 @@ void test_move_generator_and_board_move() {
           dst.at(Square{5, 9}).piece.type == PieceType::King);
 }
 
+void test_protection_level_three() {
+    suite("Protection level 3");
+    // Stage order matches lishogi: protection is index 10, "no escape" is level 3 (index 2).
+    learn::LearnSession session;
+    session.start_stage(10, 2);
+    char const* goal = "There is no escape, but you can defend!";
+    check("goal text", "LearnSession::level().goal", "protection stage, level index 2", goal,
+          session.level().goal, std::string(session.level().goal) == goal);
+
+    // Bishop steps off the file so the rook on 7h recaptures 7f. The silver stays,
+    // but it is defended, so the level is won (lishogi: not an unprotected capture).
+    Move defend = Move::board_move(Square{7, 7}, Square{8, 6});
+    check_bool("bishop 7g-8f legal", "Rules::is_legal", "protection 3 start", true,
+               Rules::is_legal(session.board(), Color::Sente, defend));
+    check_bool("defense played", "LearnSession::try_player_move(7g->8f)", "protection 3", true,
+               session.try_player_move(defend));
+    check("defended silver is a win", "LearnSession::result", "7g->8f", "Success",
+          session.result() == learn::LevelResult::Success ? "Success" : "not Success",
+          session.result() == learn::LevelResult::Success);
+    check("silver still on 7f", "board.at(7f)", "after 7g->8f", "Sente Silver",
+          std::string(color_name(session.board().at(Square{7, 6}).piece.color)) + " " +
+              piece_name(session.board().at(Square{7, 6}).piece.type),
+          session.board().at(Square{7, 6}).occupied &&
+              session.board().at(Square{7, 6}).piece.color == Color::Sente &&
+              session.board().at(Square{7, 6}).piece.type == PieceType::Silver);
+
+    session.restart_level();
+    Move hang = Move::board_move(Square{5, 5}, Square{5, 4});
+    check_bool("pawn push played", "LearnSession::try_player_move(5e->5d)", "protection 3", true,
+               session.try_player_move(hang));
+    check("hanging silver is a loss", "LearnSession::result", "5e->5d", "Failure",
+          session.result() == learn::LevelResult::Failure ? "Failure" : "not Failure",
+          session.result() == learn::LevelResult::Failure);
+    PieceSlot const& taken = session.board().at(Square{7, 6});
+    check("failure shows the rook capture", "board.at(7f) after fail", "5e->5d", "Gote Rook",
+          taken.occupied ? std::string(color_name(taken.piece.color)) + " " + piece_name(taken.piece.type)
+                         : "(empty)",
+          taken.occupied && taken.piece.color == Color::Gote && taken.piece.type == PieceType::Rook);
+}
+
 void print_summary() {
     std::cout << "\n======== SUMMARY ========\n";
     std::cout << "Total assertions:  " << g_stats.total << '\n';
@@ -543,6 +583,7 @@ int main() {
     test_sfen_roundtrip_helper();
     test_move_generator_and_board_move();
     test_random_engine_factory();
+    test_protection_level_three();
 
     print_summary();
 

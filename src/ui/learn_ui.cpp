@@ -751,7 +751,7 @@ void LearnUi::draw_browser(SDL_Renderer* renderer, SpriteAssets& assets) const {
             SDL_RenderDrawRect(renderer, &r2);
         }
 
-        char buf[160];
+        char buf[320];
         std::snprintf(buf, sizeof(buf), "%2d. %s — %s  (%d levels)", i + 1,
                       stages[static_cast<std::size_t>(i)].title,
                       stages[static_cast<std::size_t>(i)].subtitle,
