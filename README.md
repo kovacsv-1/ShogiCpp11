@@ -5,6 +5,10 @@ Kétjátékos Shogi (japán sakk) SDL2 felülettel. A szabálymotor C++11 + STL,
 **Dokumentáció:** [docs/DOCUMENTATION.md](docs/DOCUMENTATION.md) (architektúra, modern C++ térkép).  
 API (Doxygen): a gyökérben `doxygen Doxyfile` → `docs/api/html/index.html`.
 
+## Windows csomag
+
+A `ShogiCpp11-windows.zip` kicsomagolása után a `Shogi.exe` indul. MinGW-t és SDL2-t nem kell telepíteni: a futáshoz kellő DLL-ek az exe mellett vannak a zipben. Az exe, a DLL-ek, az `assets\` és az `engine\` maradjanak egy mappában.
+
 ## Build (Code::Blocks + MinGW)
 
 1. Nyisd meg a `Shogi.cbp` fájlt Code::Blocks-ban.

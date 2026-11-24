@@ -42,6 +42,13 @@ jobs:
             -lcomdlg32 -luser32 -lgdi32 -lwinmm -limm32 -lole32 -loleaut32 \
             -lversion -luuid -lsetupapi
           ls -lh build/Shogi.exe
+          # Windows path of the toolchain that linked this exe. The player zip
+          # copies DLLs from here so the game runs without MinGW or SDL2 installed.
+          cygpath -w "${MINGW_PREFIX}/bin" > build/mingw-bin.txt
+          test -f "${MINGW_PREFIX}/bin/SDL2.dll"
+          test -f "${MINGW_PREFIX}/bin/SDL2_image.dll"
+          test -f "${MINGW_PREFIX}/bin/SDL2_ttf.dll"
+          test -f "${MINGW_PREFIX}/bin/objdump.exe"
 
       - name: Stage player zip (no source)
         shell: pwsh
@@ -57,35 +64,16 @@ jobs:
           Copy-Item 'engine/fairy-stockfish-largeboard_x86-64-modern.exe' `
             (Join-Path $root 'engine/fairy-stockfish-largeboard_x86-64-modern.exe')
 
-          # Every non-system DLL imported by Shogi.exe or by a DLL we already
-          # copied. SDL2_image / SDL2_ttf pull libpng, freetype, libjxl, …
-          # A short hardcoded list leaves those out and Windows refuses to start.
+          # DLLs come from the same MinGW prefix that linked Shogi.exe (written by
+          # the build step). Players do not have that toolchain; the zip ships
+          # every non-system DLL the exe and those DLLs import.
           $PSNativeCommandUseErrorActionPreference = $false
-          # setup-msys2 puts MinGW on PATH for the msys shell. This step is pwsh,
-          # which does not inherit that, so also probe the default install root.
-          $probe = New-Object System.Collections.Generic.List[string]
-          foreach ($dir in ($env:PATH -split ';')) {
-            if ($dir) { $probe.Add($dir.Trim().Trim('"').TrimEnd('\')) }
+          if (-not (Test-Path 'build/mingw-bin.txt')) {
+            throw 'build/mingw-bin.txt missing; the build step must record the MinGW bin path'
           }
-          foreach ($extra in @(
-            'C:\msys64\mingw64\bin',
-            'D:\msys64\mingw64\bin',
-            (Join-Path $env:SystemDrive 'msys64\mingw64\bin')
-          )) {
-            if ($extra -and -not $probe.Contains($extra)) { $probe.Add($extra) }
-          }
-          $mingwBin = $null
-          foreach ($dir in $probe) {
-            if ((Test-Path -LiteralPath (Join-Path $dir 'objdump.exe')) -and
-                (Test-Path -LiteralPath (Join-Path $dir 'SDL2.dll'))) {
-              $mingwBin = $dir
-              break
-            }
-          }
-          if (-not $mingwBin) {
-            Write-Host 'PATH:'
-            $env:PATH -split ';' | ForEach-Object { Write-Host "  $_" }
-            throw 'mingw64 bin (objdump.exe + SDL2.dll) not found on PATH or under \msys64\mingw64\bin'
+          $mingwBin = (Get-Content 'build/mingw-bin.txt' -Raw).Trim()
+          if (-not (Test-Path -LiteralPath (Join-Path $mingwBin 'SDL2.dll'))) {
+            throw "SDL2.dll not in recorded MinGW bin: $mingwBin"
           }
           Write-Host "MinGW bin: $mingwBin"
           $objdump = Join-Path $mingwBin 'objdump.exe'
@@ -134,6 +122,7 @@ jobs:
           Shogi — Windows player package
           ==============================
           Double-click Shogi.exe.
+          MinGW and SDL2 do not need to be installed. Their DLLs are in this folder.
 
           Keep this folder together: Shogi.exe, the .dll files, assets\, and engine\.
           The program uses the folder that contains Shogi.exe.
@@ -166,7 +155,7 @@ jobs:
           Auto-built from the ``release`` branch (``$short``).
 
           ### Assets
-          - **ShogiCpp11-windows.zip** — player package (no source). Unzip, double-click ``Shogi.exe``. Includes ``assets/``, Fairy-Stockfish under ``engine/``, and the MinGW / SDL DLLs the exe imports.
+          - **ShogiCpp11-windows.zip** — player package (no source, no MinGW or SDL2 install). Unzip, double-click ``Shogi.exe``. Includes ``assets/``, Fairy-Stockfish under ``engine/``, and the DLLs the exe needs.
           - **Source code (zip)** / **Source code (tar.gz)** — full repository snapshot for this tag (build with Code::Blocks / MinGW; see README).
           "@
           gh release delete $tag --yes 2>$null
