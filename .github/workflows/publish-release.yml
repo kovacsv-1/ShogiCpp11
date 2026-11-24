@@ -9,53 +9,131 @@ permissions:
 
 jobs:
   package:
-    runs-on: ubuntu-latest
+    runs-on: windows-latest
+    defaults:
+      run:
+        shell: msys2 {0}
+
     steps:
       - name: Checkout
         uses: actions/checkout@v4
 
-      - name: Build project zip (files at archive root)
+      - name: Setup MSYS2 (MinGW + SDL2)
+        uses: msys2/setup-msys2@v2
+        with:
+          msystem: MINGW64
+          update: true
+          install: >-
+            mingw-w64-x86_64-gcc
+            mingw-w64-x86_64-SDL2
+            mingw-w64-x86_64-SDL2_image
+            mingw-w64-x86_64-SDL2_ttf
+            zip
+            mingw-w64-x86_64-ntldd
+
+      - name: Build Shogi.exe (Release)
         run: |
-          # Flat zip: unzip → Shogi.cbp / README / src / … immediately in the folder.
-          # Omit git metadata; keep engine exe so Play against engine works after build.
-          STAGE=$(mktemp -d)/pkg
-          mkdir -p "$STAGE"
-          rsync -a \
-            --exclude='.git/' \
-            --exclude='.github/' \
-            --exclude='.gitignore' \
-            ./ "$STAGE/"
-          (
-            cd "$STAGE"
-            zip -r "$GITHUB_WORKSPACE/ShogiCpp11.zip" .
-          )
-          ls -lh ShogiCpp11.zip
-          # Sanity: project entrypoint must be at zip root (not nested).
-          unzip -l ShogiCpp11.zip | head -n 40
-          unzip -l ShogiCpp11.zip | grep -E '^\s*[0-9]+.*\sShogi\.cbp$'
+          set -euo pipefail
+          mkdir -p build
+          g++ -std=c++11 -O2 -Wall -Isrc \
+            src/main.cpp src/core/*.cpp src/ui/*.cpp \
+            -o build/Shogi.exe \
+            -lmingw32 -lSDL2main -lSDL2 -lSDL2_image -lSDL2_ttf \
+            -lcomdlg32 -luser32 -lgdi32 -lwinmm -limm32 -lole32 -loleaut32 \
+            -lversion -luuid -lsetupapi
+          ls -lh build/Shogi.exe
+
+      - name: Stage player zip (no source)
+        shell: pwsh
+        run: |
+          $ErrorActionPreference = 'Stop'
+          $root = Join-Path $env:GITHUB_WORKSPACE 'player'
+          New-Item -ItemType Directory -Force -Path $root | Out-Null
+
+          Copy-Item 'build/Shogi.exe' (Join-Path $root 'Shogi.exe')
+
+          # Launcher at zip root — sets working dir so assets/ and engine/ resolve.
+          # (A .lnk would embed an absolute path and break after unzip.)
+          @(
+            '@echo off'
+            'cd /d "%~dp0"'
+            'start "" "%~dp0Shogi.exe"'
+          ) | Set-Content -Encoding ascii (Join-Path $root 'Shogi.bat')
+
+          Copy-Item -Recurse 'assets' (Join-Path $root 'assets')
+          New-Item -ItemType Directory -Force -Path (Join-Path $root 'engine') | Out-Null
+          Copy-Item 'engine/fairy-stockfish-largeboard_x86-64-modern.exe' `
+            (Join-Path $root 'engine/fairy-stockfish-largeboard_x86-64-modern.exe')
+
+          # Runtime DLLs next to the exe (from MinGW64 + ldd-style walk).
+          $mingwBin = 'C:\msys64\mingw64\bin'
+          $exe = Join-Path $root 'Shogi.exe'
+          $needed = New-Object 'System.Collections.Generic.HashSet[string]'
+          foreach ($name in @(
+            'SDL2.dll','SDL2_image.dll','SDL2_ttf.dll',
+            'libgcc_s_seh-1.dll','libstdc++-6.dll','libwinpthread-1.dll'
+          )) { [void]$needed.Add($name) }
+
+          $ntldd = Join-Path $mingwBin 'ntldd.exe'
+          if (Test-Path $ntldd) {
+            & $ntldd -R $exe 2>$null | ForEach-Object {
+              if ($_ -match '=>\s+(.+\\)?([^\\]+\.dll)\s') {
+                [void]$needed.Add($Matches[2])
+              } elseif ($_ -match '^\s*([A-Za-z0-9_+\-.]+\.dll)\b') {
+                [void]$needed.Add($Matches[1])
+              }
+            }
+          }
+
+          foreach ($dll in $needed) {
+            $src = Join-Path $mingwBin $dll
+            if (Test-Path $src) {
+              Copy-Item $src (Join-Path $root $dll) -Force
+            }
+          }
+
+          @"
+          Shogi — Windows player package
+          ==============================
+          Double-click  Shogi.bat  (or Shogi.exe).
+
+          Keep this folder together: Shogi.exe, the .dll files, assets\, and engine\.
+          Working directory must be this folder (Shogi.bat does that for you).
+          "@.Trim() | Set-Content -Encoding utf8 (Join-Path $root 'README.txt')
+
+          # Sanity: no source / tests / docs leaked into the player tree.
+          $banned = @('src','tests','docs','tools','Shogi.cbp','Doxyfile','.github')
+          foreach ($b in $banned) {
+            if (Test-Path (Join-Path $root $b)) { throw "player package must not contain $b" }
+          }
+
+          Get-ChildItem $root | Format-Table Name, Length
+          Add-Type -AssemblyName System.IO.Compression.FileSystem
+          $zipPath = Join-Path $env:GITHUB_WORKSPACE 'ShogiCpp11-windows.zip'
+          if (Test-Path $zipPath) { Remove-Item $zipPath -Force }
+          # $false => entries at archive root (Shogi.bat / Shogi.exe / assets / …)
+          [System.IO.Compression.ZipFile]::CreateFromDirectory($root, $zipPath, 'Optimal', $false)
+          Get-Item $zipPath | Format-List FullName, Length
 
       - name: Publish GitHub Release
+        shell: pwsh
         env:
           GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: |
-          TAG="download"
-          SHORT=$(git rev-parse --short HEAD)
-          NOTES="$(cat <<EOF
-          Auto-built from the \`release\` branch (\`${SHORT}\`).
+          $ErrorActionPreference = 'Stop'
+          $tag = 'download'
+          $short = (git rev-parse --short HEAD).Trim()
+          $notes = @"
+          Auto-built from the ``release`` branch (``$short``).
 
           ### Assets
-          - **ShogiCpp11.zip** — project files at the archive root (unzip, open \`Shogi.cbp\`, set working dir to that folder, Build & Run). Includes Fairy-Stockfish under \`engine/\`.
-          - **Source code (zip)** / **Source code (tar.gz)** — standard GitHub archives of this tag.
-
-          SDL2 + MinGW paths: see \`README.md\`.
-          EOF
-          )"
-          # Replace previous "download" release/tag so the link stays stable.
-          gh release delete "$TAG" --yes 2>/dev/null || true
-          git push origin ":refs/tags/$TAG" 2>/dev/null || true
-          # Creating a release tag also attaches the usual Source code zip + tar.gz.
-          gh release create "$TAG" "ShogiCpp11.zip" \
-            --title "ShogiCpp11 — downloadable package" \
-            --notes "$NOTES" \
-            --target release \
+          - **ShogiCpp11-windows.zip** — player package (no source). Unzip, double-click ``Shogi.bat`` (or ``Shogi.exe``). Includes ``assets/``, Fairy-Stockfish under ``engine/``, and required DLLs.
+          - **Source code (zip)** / **Source code (tar.gz)** — full repository snapshot for this tag (build with Code::Blocks / MinGW; see README).
+          "@
+          gh release delete $tag --yes 2>$null
+          git push origin ":refs/tags/$tag" 2>$null
+          gh release create $tag 'ShogiCpp11-windows.zip' `
+            --title 'ShogiCpp11 — downloadable package' `
+            --notes $notes `
+            --target release `
             --latest
