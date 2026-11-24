@@ -14,29 +14,46 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v4
 
-      - name: Build zip
+      - name: Build project zip (files at archive root)
         run: |
-          NAME="ShogiCpp11"
-          STAGE=$(mktemp -d)
-          mkdir -p "$STAGE/$NAME"
-          # Package source tree; keep engine exe, drop git/workflow metadata.
+          # Flat zip: unzip → Shogi.cbp / README / src / … immediately in the folder.
+          # Omit git metadata; keep engine exe so Play against engine works after build.
+          STAGE=$(mktemp -d)/pkg
+          mkdir -p "$STAGE"
           rsync -a \
             --exclude='.git/' \
             --exclude='.github/' \
             --exclude='.gitignore' \
-            ./ "$STAGE/$NAME/"
-          (cd "$STAGE" && zip -r "$GITHUB_WORKSPACE/$NAME.zip" "$NAME")
-          ls -lh "$NAME.zip"
+            ./ "$STAGE/"
+          (
+            cd "$STAGE"
+            zip -r "$GITHUB_WORKSPACE/ShogiCpp11.zip" .
+          )
+          ls -lh ShogiCpp11.zip
+          # Sanity: project entrypoint must be at zip root (not nested).
+          unzip -l ShogiCpp11.zip | head -n 40
+          unzip -l ShogiCpp11.zip | grep -E '^\s*[0-9]+.*\sShogi\.cbp$'
 
       - name: Publish GitHub Release
         env:
           GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: |
           TAG="download"
-          NOTES="Auto-built from the \`release\` branch ($(git rev-parse --short HEAD)).
-          Unzip and open \`Shogi.cbp\` in Code::Blocks (working dir = project root)."
+          SHORT=$(git rev-parse --short HEAD)
+          NOTES="$(cat <<EOF
+          Auto-built from the \`release\` branch (\`${SHORT}\`).
+
+          ### Assets
+          - **ShogiCpp11.zip** — project files at the archive root (unzip, open \`Shogi.cbp\`, set working dir to that folder, Build & Run). Includes Fairy-Stockfish under \`engine/\`.
+          - **Source code (zip)** / **Source code (tar.gz)** — standard GitHub archives of this tag.
+
+          SDL2 + MinGW paths: see \`README.md\`.
+          EOF
+          )"
+          # Replace previous "download" release/tag so the link stays stable.
           gh release delete "$TAG" --yes 2>/dev/null || true
           git push origin ":refs/tags/$TAG" 2>/dev/null || true
+          # Creating a release tag also attaches the usual Source code zip + tar.gz.
           gh release create "$TAG" "ShogiCpp11.zip" \
             --title "ShogiCpp11 — downloadable package" \
             --notes "$NOTES" \
