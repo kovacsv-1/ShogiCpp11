@@ -51,7 +51,10 @@ ScenarioStep const scen_14_6[] = {{"B*8h", Color::Sente}, {"P*3c", Color::Gote},
 ScenarioStep const scen_14_7[] = {{"P*5g", Color::Sente}, {"P*5c", Color::Gote}, {"P*6g", Color::Sente}, {"P*6c", Color::Gote}, {"P*4g", Color::Sente}, {"P*7c", Color::Gote}, {"P*7g", Color::Sente}, {"P*8c", Color::Gote}, {"P*3g", Color::Sente}, {"P*9c", Color::Gote}, {"P*8g", Color::Sente}, {"L*1a", Color::Gote}, {"P*2g", Color::Sente}, {"L*9a", Color::Gote}, {"P*9g", Color::Sente}, {"B*2b", Color::Gote}, {"P*1g", Color::Sente}, {"R*8b", Color::Gote}};
 ScenarioStep const scen_14_8[] = {{"7g7f", Color::Sente}};
 ScenarioStep const scen_16_5[] = {{"6b6h+", Color::Gote}, {"7h8g", Color::Sente}};
+// Piece value 4: rook, bishop, gold, silver, knight, lance, pawn.
+char const* const order_16_3[] = {"7g", "5g", "5d", "7h", "4f", "6d", "4g"};
 ScenarioStep const scen_16_7[] = {{"7f4c+", Color::Sente}, {"3b4c", Color::Gote}, {"S*3b", Color::Sente}, {"2a2b", Color::Gote}, {"3b4c+", Color::Sente}};
+ScenarioStep const scen_16_8[] = {{"S*2a", Color::Sente}};
 ScenarioStep const scen_17_0[] = {{"9i8i", Color::Sente}, {"9e8e", Color::Gote}, {"8i9i", Color::Sente}, {"8e9e", Color::Gote}, {"9i8i", Color::Sente}, {"9e8e", Color::Gote}, {"8i9i", Color::Sente}, {"8e9e", Color::Gote}, {"9i8i", Color::Sente}, {"9e8e", Color::Gote}, {"8i9i", Color::Sente}, {"8e9e", Color::Gote}};
 ScenarioStep const scen_17_1[] = {{"9f8e", Color::Sente}, {"8g7f", Color::Gote}, {"8e9f", Color::Sente}, {"7f8g", Color::Gote}, {"9f8e", Color::Sente}, {"8g7f", Color::Gote}, {"8e9f", Color::Sente}, {"7f8g", Color::Gote}, {"9f8e", Color::Sente}, {"8g7f", Color::Gote}, {"8e9f", Color::Sente}, {"7f8g", Color::Gote}};
 ScenarioStep const scen_17_2[] = {{"7f8g", Color::Gote}, {"9f8e", Color::Sente}, {"6e7f", Color::Gote}};
@@ -831,7 +834,8 @@ LearnLevel const levels_12[] = {
         FailureKind::IfNotSuccess,
         nullptr, 0,
         nullptr, 0,
-        "", PieceType::Pawn, Color::Sente, false
+        "", PieceType::Pawn, Color::Sente, false,
+        nullptr, 0, true, nullptr
     },
     {
         "Watch out for your opponent's reply!",
@@ -841,7 +845,8 @@ LearnLevel const levels_12[] = {
         FailureKind::IfNotSuccess,
         nullptr, 0,
         nullptr, 0,
-        "", PieceType::Pawn, Color::Sente, false
+        "", PieceType::Pawn, Color::Sente, false,
+        nullptr, 0, false, "3f"
     },
 };
 
@@ -1230,10 +1235,11 @@ LearnLevel const levels_16[] = {
         "9/9/9/3lg4/9/3+R1n3/2r1bp3/2s6/9 b - 1",
         11,
         SuccessKind::ExtinctGote,
-        FailureKind::IfNotSuccess,
+        FailureKind::CaptureOrder,
         nullptr, 0,
         nullptr, 0,
-        "", PieceType::Pawn, Color::Sente, false
+        "", PieceType::Pawn, Color::Sente, false,
+        order_16_3, 7
     },
     {
         "An exchange is when you capture a piece, and lose another. Which is a better exchange? Silver-for-rook, or gold-for-knight?",
@@ -1282,7 +1288,7 @@ LearnLevel const levels_16[] = {
         SuccessKind::Scenario,
         FailureKind::Scenario,
         nullptr, 0,
-        nullptr, 0,
+        scen_16_8, 1,
         "", PieceType::Pawn, Color::Sente, false
     },
 };

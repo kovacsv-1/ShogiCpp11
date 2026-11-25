@@ -164,15 +164,16 @@ void LearnUi::activate_board_cursor() {
     }
 
     if (hand_nav_ != HandNavFocus::None) {
-        if (hand_nav_ == HandNavFocus::Sente) {
+        bool const gote_turn = session_.side_to_move() == Color::Gote;
+        bool const own_hand = (hand_nav_ == HandNavFocus::Gote) == gote_turn;
+        if (own_hand) {
             PieceType t = BoardView::hand_type_order()[static_cast<std::size_t>(hand_slot_)];
             on_hand_click(t);
         }
         return;
     }
 
-    if (session_.result() != learn::LevelResult::Playing ||
-        session_.side_to_move() != Color::Sente) {
+    if (session_.result() != learn::LevelResult::Playing) {
         return;
     }
     auto const& slot = session_.board().at(board_cursor_);
@@ -180,7 +181,7 @@ void LearnUi::activate_board_cursor() {
         try_move_to(board_cursor_);
         return;
     }
-    if (slot.occupied && slot.piece.color == Color::Sente) {
+    if (slot.occupied && slot.piece.color == session_.side_to_move()) {
         has_selection_ = true;
         selected_ = board_cursor_;
         has_drop_ = false;
@@ -251,9 +252,6 @@ void LearnUi::on_hand_click(PieceType t) {
 
 bool LearnUi::try_move_to(Square to) {
     if (asking_promote_ || session_.result() != learn::LevelResult::Playing) {
-        return false;
-    }
-    if (session_.side_to_move() != Color::Sente) {
         return false;
     }
 
@@ -674,10 +672,9 @@ LearnAction LearnUi::handle_event(SDL_Event const& e, BoardView const& view) {
             board_nav_ = true;
             board_cursor_ = hit.square;
         }
-        if (session_.result() == learn::LevelResult::Playing &&
-            session_.side_to_move() == Color::Sente) {
+        if (session_.result() == learn::LevelResult::Playing) {
             PieceSlot const& slot = session_.board().at(hit.square);
-            if (slot.occupied && slot.piece.color == Color::Sente) {
+            if (slot.occupied && slot.piece.color == session_.side_to_move()) {
                 has_selection_ = true;
                 selected_ = hit.square;
                 has_drop_ = false;
@@ -692,8 +689,11 @@ LearnAction LearnUi::handle_event(SDL_Event const& e, BoardView const& view) {
                 clear_selection();
             }
         }
-    } else if (hit.kind == UiHitKind::HandSente) {
-        on_hand_click(hit.hand_type);
+    } else if (hit.kind == UiHitKind::HandSente || hit.kind == UiHitKind::HandGote) {
+        bool const gote_hand = hit.kind == UiHitKind::HandGote;
+        if (gote_hand == (session_.side_to_move() == Color::Gote)) {
+            on_hand_click(hit.hand_type);
+        }
         lmb_down_ = has_drop_;
         dragging_ = false;
     }
