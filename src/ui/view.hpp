@@ -18,6 +18,12 @@
 namespace shogi {
 namespace ui {
 
+/** Pixel width of @p text in @p font. Empty or a missing font is 0. */
+int text_px(TTF_Font* font, std::string const& text);
+
+/** Shorten @p text with "..." so it is at most @p max_px wide. */
+std::string clip_text(TTF_Font* font, std::string const& text, int max_px);
+
 /** What a pointer hit resolved to. */
 enum class UiHitKind {
     None,

@@ -8,6 +8,95 @@
 namespace shogi {
 namespace ui {
 
+int text_px(TTF_Font* font, std::string const& text) {
+    if (!font || text.empty()) {
+        return 0;
+    }
+    int w = 0;
+    int h = 0;
+    if (TTF_SizeUTF8(font, text.c_str(), &w, &h) != 0) {
+        return 0;
+    }
+    return w;
+}
+
+namespace {
+
+void pop_utf8(std::string& s) {
+    if (s.empty()) {
+        return;
+    }
+    s.pop_back();
+    while (!s.empty() && (static_cast<unsigned char>(s.back()) & 0xC0) == 0x80) {
+        s.pop_back();
+    }
+}
+
+std::size_t utf8_span(std::string const& text, std::size_t at) {
+    if (at >= text.size()) {
+        return 0;
+    }
+    unsigned char c = static_cast<unsigned char>(text[at]);
+    std::size_t n = 1;
+    if ((c & 0xE0) == 0xC0) {
+        n = 2;
+    } else if ((c & 0xF0) == 0xE0) {
+        n = 3;
+    } else if ((c & 0xF8) == 0xF0) {
+        n = 4;
+    }
+    if (at + n > text.size()) {
+        return 1;
+    }
+    return n;
+}
+
+std::vector<std::string> wrap_text(TTF_Font* font, std::string const& text, int max_px) {
+    std::vector<std::string> lines;
+    std::string cur;
+    for (std::size_t i = 0; i < text.size();) {
+        std::string ch = text.substr(i, utf8_span(text, i));
+        i += ch.size();
+        std::string trial = cur + ch;
+        if (cur.empty() || text_px(font, trial) <= max_px) {
+            cur = trial;
+            continue;
+        }
+        std::size_t sp = cur.rfind(' ');
+        if (sp != std::string::npos && sp > 0) {
+            lines.push_back(cur.substr(0, sp));
+            cur = cur.substr(sp + 1);
+            if (ch != " ") {
+                cur += ch;
+            }
+        } else {
+            lines.push_back(cur);
+            cur = (ch == " ") ? std::string() : ch;
+        }
+    }
+    if (!cur.empty()) {
+        lines.push_back(cur);
+    }
+    return lines;
+}
+
+} // namespace
+
+std::string clip_text(TTF_Font* font, std::string const& text, int max_px) {
+    if (max_px <= 0) {
+        return std::string();
+    }
+    if (text_px(font, text) <= max_px) {
+        return text;
+    }
+    std::string cut = text;
+    std::string const ell = "...";
+    while (!cut.empty() && text_px(font, cut + ell) > max_px) {
+        pop_utf8(cut);
+    }
+    return cut + ell;
+}
+
 BoardView::BoardView(SpriteAssets& assets)
     : assets_(assets), history_scroll_(0), history_scroll_ply_(static_cast<std::size_t>(-1)) {}
 
@@ -818,29 +907,31 @@ void BoardView::draw_learn(SDL_Renderer* renderer, learn::LearnSession const& se
     std::string header = std::string(stg.title) + "  " +
                          std::to_string(session.level_index() + 1) + "/" +
                          std::to_string(session.level_count());
+    header = clip_text(assets_.font(), header, panel_w);
     draw_text(renderer, panel_x, text_y, header, st, false);
     text_y += 32;
 
-    // Goal / task description beside the button column (not in the bottom bar).
-    std::string goal = lv.goal;
-    int const max_chars = std::max(18, panel_w / 8);
-    while (!goal.empty()) {
-        std::size_t take = static_cast<std::size_t>(max_chars);
-        if (goal.size() <= take) {
-            draw_text(renderer, panel_x, text_y, goal, SDL_Color{200, 200, 190, 255}, true);
-            text_y += 22;
+    // Goal beside the buttons. Width is measured, not guessed, so a line
+    // cannot run past the right edge of the window.
+    SDL_Color goal_col{200, 200, 190, 255};
+    int const line_h = 22;
+    int const text_bottom = status_y - 70;
+    std::vector<std::string> lines = wrap_text(assets_.font_small(), lv.goal, panel_w);
+    for (std::size_t i = 0; i < lines.size(); ++i) {
+        if (text_y + line_h > text_bottom) {
+            draw_text(renderer, panel_x, text_y, "...", goal_col, true);
+            text_y += line_h;
             break;
         }
-        std::size_t split = goal.rfind(' ', take);
-        if (split == std::string::npos || split < take / 2) {
-            split = take;
+        std::string line = lines[i];
+        bool const last_fit = (i + 1 < lines.size() && text_y + 2 * line_h > text_bottom);
+        if (last_fit) {
+            line = clip_text(assets_.font_small(), line + " ...", panel_w);
         }
-        draw_text(renderer, panel_x, text_y, goal.substr(0, split), SDL_Color{200, 200, 190, 255},
-                  true);
-        text_y += 22;
-        goal = goal.substr(split);
-        while (!goal.empty() && goal[0] == ' ') {
-            goal.erase(goal.begin());
+        draw_text(renderer, panel_x, text_y, line, goal_col, true);
+        text_y += line_h;
+        if (last_fit) {
+            break;
         }
     }
 
@@ -848,18 +939,21 @@ void BoardView::draw_learn(SDL_Renderer* renderer, learn::LearnSession const& se
     std::string score_line;
     if (session.result() == learn::LevelResult::Success) {
         score_line = "score: " + std::to_string(session.last_score()) + "/3";
+        score_line = clip_text(assets_.font(), score_line, panel_w);
         draw_text(renderer, panel_x, text_y, score_line, SDL_Color{220, 180, 60, 255}, false);
     } else {
         score_line = "Target moves: " + std::to_string(lv.nb_moves);
         if (session.player_moves() > 0) {
             score_line += "  (" + std::to_string(session.player_moves()) + " used)";
         }
+        score_line = clip_text(assets_.font_small(), score_line, panel_w);
         draw_text(renderer, panel_x, text_y, score_line, SDL_Color{160, 160, 160, 255}, true);
     }
     text_y += 28;
 
     if (session.result() == learn::LevelResult::Failure) {
-        draw_text(renderer, panel_x, text_y, "Failed — press R to retry",
+        draw_text(renderer, panel_x, text_y,
+                  clip_text(assets_.font_small(), "Failed — press R to retry", panel_w),
                   SDL_Color{220, 100, 100, 255}, true);
     } else if (session.result() == learn::LevelResult::Success) {
         draw_text(renderer, panel_x, text_y, "Success!", SDL_Color{120, 200, 120, 255}, true);

@@ -729,8 +729,10 @@ void LearnUi::draw_browser(SDL_Renderer* renderer, SpriteAssets& assets) const {
 
     draw_text(40, 28, "Learn — Lishogi tutorial", title, false);
     draw_text(40, 62,
-              "Levels taken from the open source lishogi.org source at "
-              "https://github.com/WandererXII/lishogi",
+              clip_text(assets.font_small(),
+                        "Levels taken from the open source lishogi.org source at "
+                        "https://github.com/WandererXII/lishogi",
+                        BoardView::window_w - 56),
               dim, true);
 
     auto const& stages = learn::all_stages();
@@ -756,14 +758,17 @@ void LearnUi::draw_browser(SDL_Renderer* renderer, SpriteAssets& assets) const {
                       stages[static_cast<std::size_t>(i)].title,
                       stages[static_cast<std::size_t>(i)].subtitle,
                       stages[static_cast<std::size_t>(i)].level_count);
-        draw_text(r.x + 16, r.y + 8, buf, sel ? accent : text, true);
+        std::string label = clip_text(assets.font_small(), buf, r.w - 24);
+        draw_text(r.x + 16, r.y + 8, label, sel ? accent : text, true);
 
         int hs = progress_.stage_score(i);
         int mx = progress_.stage_max(i);
         char score_buf[64];
         std::snprintf(score_buf, sizeof(score_buf), "high score: %d/%d", hs, mx);
         SDL_Color score_col = (hs > 0) ? accent : dim;
-        draw_text(kStageScoreX, r.y + 8, score_buf, score_col, true);
+        std::string score =
+            clip_text(assets.font_small(), score_buf, BoardView::window_w - kStageScoreX - 16);
+        draw_text(kStageScoreX, r.y + 8, score, score_col, true);
     }
 
     SDL_Rect back = browser_back_rect();
