@@ -441,6 +441,8 @@ LearnSession::LearnSession()
       player_moves_(0),
       last_score_(0),
       scenario_i_(0),
+      capture_order_i_(0),
+      order_bad_(false),
       player_color_(Color::Sente) {}
 
 int LearnSession::stage_count() const {
@@ -515,6 +517,8 @@ void LearnSession::load_current() {
     player_moves_ = 0;
     last_score_ = 0;
     scenario_i_ = 0;
+    capture_order_i_ = 0;
+    order_bad_ = false;
     obstacle_hit_.assign(static_cast<std::size_t>(lv.obstacle_count), false);
     // Lishogi places temporary opponent pawns on obstacle squares (stars).
     for (int i = 0; i < lv.obstacle_count; ++i) {
@@ -640,6 +644,32 @@ void LearnSession::play_failure_capture() {
     }
 }
 
+void LearnSession::note_capture_order(Square to) {
+    LearnLevel const& lv = level();
+    if (lv.failure != FailureKind::CaptureOrder || order_bad_) {
+        return;
+    }
+    if (lv.capture_order == nullptr || capture_order_i_ >= lv.capture_order_count) {
+        return;
+    }
+    Square next;
+    if (!parse_usi_square(lv.capture_order[capture_order_i_], next)) {
+        return;
+    }
+    if (to == next) {
+        ++capture_order_i_;
+        return;
+    }
+    // Landing on a later target before the earlier ones is the wrong order.
+    for (int i = capture_order_i_ + 1; i < lv.capture_order_count; ++i) {
+        Square later;
+        if (parse_usi_square(lv.capture_order[i], later) && later == to) {
+            order_bad_ = true;
+            return;
+        }
+    }
+}
+
 bool LearnSession::evaluate_success() const {
     LearnLevel const& lv = level();
     switch (lv.success) {
@@ -698,6 +728,8 @@ bool LearnSession::evaluate_failure() const {
     case FailureKind::IfNotSuccess:
         // Fail immediately when move didn't achieve success (one-shot puzzles).
         return !evaluate_success();
+    case FailureKind::CaptureOrder:
+        return order_bad_;
     }
     return false;
 }
@@ -800,6 +832,7 @@ bool LearnSession::try_player_move(Move m) {
     board_.apply(m, side_);
     ++player_moves_;
     mark_obstacle(m.to);
+    note_capture_order(m.to);
     side_ = opposite(side_);
 
     if (evaluate_success()) {

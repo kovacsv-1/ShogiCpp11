@@ -548,6 +548,57 @@ void test_protection_level_three() {
           taken.occupied && taken.piece.color == Color::Gote && taken.piece.type == PieceType::Rook);
 }
 
+void test_value_level_four() {
+    suite("Piece value level 4");
+    learn::LearnSession session;
+    session.start_stage(16, 3);
+    check("stage", "LearnSession::stage().key", "stage index 16", "value", session.stage().key,
+          std::string(session.stage().key) == "value");
+
+    // Bishop is the second-most valuable piece. Taking it first must lose.
+    Move bishop_first = Move::board_move(Square{6, 6}, Square{5, 7});
+    check_bool("bishop-first played", "try_player_move(6f->5g)", "value level 4", true,
+               session.try_player_move(bishop_first));
+    check("bishop-first loses", "LearnSession::result", "6f->5g", "Failure",
+          session.result() == learn::LevelResult::Failure ? "Failure" : "not Failure",
+          session.result() == learn::LevelResult::Failure);
+
+    session.restart_level();
+    // Rook, bishop, gold, silver, knight, lance, pawn, with the steps between them.
+    Square const path[][2] = {
+        {Square{6, 6}, Square{7, 7}}, {Square{7, 7}, Square{5, 7}}, {Square{5, 7}, Square{5, 4}},
+        {Square{5, 4}, Square{5, 8}}, {Square{5, 8}, Square{7, 8}}, {Square{7, 8}, Square{7, 6}},
+        {Square{7, 6}, Square{4, 6}}, {Square{4, 6}, Square{6, 6}}, {Square{6, 6}, Square{6, 4}},
+        {Square{6, 4}, Square{4, 4}}, {Square{4, 4}, Square{4, 7}},
+    };
+    int const n = 11;
+    bool line_ok = true;
+    for (int i = 0; i < n; ++i) {
+        Move step = Move::board_move(path[i][0], path[i][1]);
+        if (!session.try_player_move(step)) {
+            line_ok = false;
+            check("ordered line move accepted", "try_player_move", move_str(step).c_str(), "true",
+                  "false", false);
+            break;
+        }
+        bool last = (i + 1 == n);
+        learn::LevelResult expect =
+            last ? learn::LevelResult::Success : learn::LevelResult::Playing;
+        if (session.result() != expect) {
+            line_ok = false;
+            check("ordered line result", "LearnSession::result after move", move_str(step).c_str(),
+                  last ? "Success" : "Playing",
+                  session.result() == learn::LevelResult::Success
+                      ? "Success"
+                      : (session.result() == learn::LevelResult::Failure ? "Failure" : "Playing"),
+                  false);
+            break;
+        }
+    }
+    check_bool("rook-first line clears the level", "11 moves in value order",
+               "7g, 5g, 5d, 7h, 4f, 6d, 4g", true, line_ok);
+}
+
 void print_summary() {
     std::cout << "\n======== SUMMARY ========\n";
     std::cout << "Total assertions:  " << g_stats.total << '\n';
@@ -584,6 +635,7 @@ int main() {
     test_move_generator_and_board_move();
     test_random_engine_factory();
     test_protection_level_three();
+    test_value_level_four();
 
     print_summary();
 

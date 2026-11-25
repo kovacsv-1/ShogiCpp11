@@ -36,7 +36,9 @@ enum class FailureKind {
     AnyCapture,
     UnprotectedCapture,
     Scenario,
-    IfNotSuccess
+    IfNotSuccess,
+    /// Capture a listed square before the earlier ones in @ref LearnLevel::capture_order.
+    CaptureOrder
 };
 
 /** One forced USI ply in a scenario level. */
@@ -60,6 +62,30 @@ struct LearnLevel {
     PieceType piece_type;
     Color piece_color;
     bool piece_promoted;
+    /// Squares that must be landed on in order (piece-value ladder). Empty = unused.
+    char const* const* capture_order;
+    int capture_order_count;
+
+    LearnLevel(char const* goal_, char const* sfen_, int nb_moves_, SuccessKind success_,
+               FailureKind failure_, char const* const* obstacles_, int obstacle_count_,
+               ScenarioStep const* scenario_, int scenario_count_, char const* target_sq_,
+               PieceType piece_type_, Color piece_color_, bool piece_promoted_,
+               char const* const* capture_order_ = nullptr, int capture_order_count_ = 0)
+        : goal(goal_),
+          sfen(sfen_),
+          nb_moves(nb_moves_),
+          success(success_),
+          failure(failure_),
+          obstacles(obstacles_),
+          obstacle_count(obstacle_count_),
+          scenario(scenario_),
+          scenario_count(scenario_count_),
+          target_sq(target_sq_),
+          piece_type(piece_type_),
+          piece_color(piece_color_),
+          piece_promoted(piece_promoted_),
+          capture_order(capture_order_),
+          capture_order_count(capture_order_count_) {}
 };
 
 /** A named stage containing several @ref LearnLevel entries. */
@@ -169,6 +195,8 @@ private:
     int last_score_;
     std::vector<bool> obstacle_hit_;
     int scenario_i_;
+    int capture_order_i_;
+    bool order_bad_;
     std::string message_;
     Color player_color_;
 
@@ -181,6 +209,7 @@ private:
     bool player_can_recapture(Move capture) const;
     /** On a capture/protection failure, play the punishing capture (not onto a king). */
     void play_failure_capture();
+    void note_capture_order(Square to);
     void maybe_opponent_reply();
     void mark_obstacle(Square to);
     bool no_pieces(Color c) const;
