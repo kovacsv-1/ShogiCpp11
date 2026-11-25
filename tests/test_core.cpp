@@ -599,6 +599,91 @@ void test_value_level_four() {
                "7g, 5g, 5d, 7h, 4f, 6d, 4g", true, line_ok);
 }
 
+void test_other_learn_win_conditions() {
+    suite("Other learn win conditions");
+
+    learn::LearnSession hang;
+    hang.start_stage(12, 10);
+    check_bool("hanging escape loses", "try L*5i", "out of check, watch the reply", true,
+               hang.try_player_move(Move::drop(PieceType::Lance, Square{5, 9})));
+    check("L*5i is not safe", "result", "L*5i", "Failure",
+          hang.result() == learn::LevelResult::Failure ? "Failure" : "not Failure",
+          hang.result() == learn::LevelResult::Failure);
+    hang.restart_level();
+    check_bool("safe lance drop wins", "try L*7i", "out of check", true,
+               hang.try_player_move(Move::drop(PieceType::Lance, Square{7, 9})));
+    check("L*7i wins", "result", "L*7i", "Success",
+          hang.result() == learn::LevelResult::Success ? "Success" : "not Success",
+          hang.result() == learn::LevelResult::Success);
+
+    learn::LearnSession block;
+    block.start_stage(12, 11);
+    check_bool("king step loses", "try 2h1h", "must land on 3f", true,
+               block.try_player_move(Move::board_move(Square{2, 8}, Square{1, 8})));
+    check("2h1h is not the answer", "result", "2h1h", "Failure",
+          block.result() == learn::LevelResult::Failure ? "Failure" : "not Failure",
+          block.result() == learn::LevelResult::Failure);
+    block.restart_level();
+    check_bool("gold to 3f wins", "try 4g3f", "out of check", true,
+               block.try_player_move(Move::board_move(Square{4, 7}, Square{3, 6})));
+    check("4g3f wins", "result", "4g3f", "Success",
+          block.result() == learn::LevelResult::Success ? "Success" : "not Success",
+          block.result() == learn::LevelResult::Success);
+
+    learn::LearnSession sacrifice;
+    sacrifice.start_stage(16, 5);
+    check("rook sacrifice is already played", "board.at(6h) after start", "piece value 6",
+          "Gote Rook",
+          (sacrifice.board().at(Square{6, 8}).occupied &&
+           sacrifice.board().at(Square{6, 8}).piece.color == Color::Gote &&
+           sacrifice.board().at(Square{6, 8}).piece.type == PieceType::Rook)
+              ? "Gote Rook"
+              : "not the rook",
+          sacrifice.board().at(Square{6, 8}).occupied &&
+              sacrifice.board().at(Square{6, 8}).piece.color == Color::Gote &&
+              sacrifice.board().at(Square{6, 8}).piece.type == PieceType::Rook);
+    check_bool("taking the rook loses", "try 7h6h", "piece value 6", true,
+               sacrifice.try_player_move(Move::board_move(Square{7, 8}, Square{6, 8})));
+    check("7h6h fails", "result", "7h6h", "Failure",
+          sacrifice.result() == learn::LevelResult::Failure ? "Failure" : "not Failure",
+          sacrifice.result() == learn::LevelResult::Failure);
+    sacrifice.restart_level();
+    check_bool("king steps aside", "try 7h8g", "piece value 6", true,
+               sacrifice.try_player_move(Move::board_move(Square{7, 8}, Square{8, 7})));
+    check("7h8g wins", "result", "7h8g", "Success",
+          sacrifice.result() == learn::LevelResult::Success ? "Success" : "not Success",
+          sacrifice.result() == learn::LevelResult::Success);
+
+    learn::LearnSession king;
+    king.start_stage(16, 8);
+    check_bool("wrong drop loses", "try G*2a", "piece value 9", true,
+               king.try_player_move(Move::drop(PieceType::Gold, Square{2, 1})));
+    check("G*2a fails", "result", "G*2a", "Failure",
+          king.result() == learn::LevelResult::Failure ? "Failure" : "not Failure",
+          king.result() == learn::LevelResult::Failure);
+    king.restart_level();
+    check_bool("silver drop wins", "try S*2a", "piece value 9", true,
+               king.try_player_move(Move::drop(PieceType::Silver, Square{2, 1})));
+    check("S*2a wins", "result", "S*2a", "Success",
+          king.result() == learn::LevelResult::Success ? "Success" : "not Success",
+          king.result() == learn::LevelResult::Success);
+
+    learn::LearnSession flipped;
+    flipped.start_stage(17, 2);
+    check("flipped level is Gote to move", "side_to_move", "repetition 3", "Gote",
+          color_name(flipped.side_to_move()), flipped.side_to_move() == Color::Gote);
+    check_bool("gote 7f8g accepted", "try 7f8g", "repetition 3", true,
+               flipped.try_player_move(Move::board_move(Square{7, 6}, Square{8, 7})));
+    check("still playing after the reply", "result", "7f8g", "Playing",
+          flipped.result() == learn::LevelResult::Playing ? "Playing" : "not Playing",
+          flipped.result() == learn::LevelResult::Playing);
+    check_bool("gote 6e7f wins", "try 6e7f", "repetition 3", true,
+               flipped.try_player_move(Move::board_move(Square{6, 5}, Square{7, 6})));
+    check("repetition 3 complete", "result", "6e7f", "Success",
+          flipped.result() == learn::LevelResult::Success ? "Success" : "not Success",
+          flipped.result() == learn::LevelResult::Success);
+}
+
 void print_summary() {
     std::cout << "\n======== SUMMARY ========\n";
     std::cout << "Total assertions:  " << g_stats.total << '\n';
@@ -636,6 +721,7 @@ int main() {
     test_random_engine_factory();
     test_protection_level_three();
     test_value_level_four();
+    test_other_learn_win_conditions();
 
     print_summary();
 

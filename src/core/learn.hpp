@@ -70,7 +70,8 @@ struct LearnLevel {
                FailureKind failure_, char const* const* obstacles_, int obstacle_count_,
                ScenarioStep const* scenario_, int scenario_count_, char const* target_sq_,
                PieceType piece_type_, Color piece_color_, bool piece_promoted_,
-               char const* const* capture_order_ = nullptr, int capture_order_count_ = 0)
+               char const* const* capture_order_ = nullptr, int capture_order_count_ = 0,
+               bool require_defended_ = false, char const* require_sq_ = nullptr)
         : goal(goal_),
           sfen(sfen_),
           nb_moves(nb_moves_),
@@ -85,7 +86,14 @@ struct LearnLevel {
           piece_color(piece_color_),
           piece_promoted(piece_promoted_),
           capture_order(capture_order_),
-          capture_order_count(capture_order_count_) {}
+          capture_order_count(capture_order_count_),
+          require_defended(require_defended_),
+          require_sq(require_sq_) {}
+
+    /// NotInCheck also fails when a friendly piece is hanging.
+    bool require_defended;
+    /// NotInCheck also requires a piece of the learner on this square.
+    char const* require_sq;
 };
 
 /** A named stage containing several @ref LearnLevel entries. */
@@ -209,6 +217,7 @@ private:
     bool player_can_recapture(Move capture) const;
     /** On a capture/protection failure, play the punishing capture (not onto a king). */
     void play_failure_capture();
+    void play_scripted_opponent();
     void note_capture_order(Square to);
     void maybe_opponent_reply();
     void mark_obstacle(Square to);

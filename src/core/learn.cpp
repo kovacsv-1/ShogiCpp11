@@ -512,7 +512,8 @@ void LearnSession::load_current() {
         result_ = LevelResult::Failure;
         return;
     }
-    player_color_ = Color::Sente;
+    // Lishogi's learner is whoever is to move in the SFEN (one repetition level is Gote).
+    player_color_ = side_;
     result_ = LevelResult::Playing;
     player_moves_ = 0;
     last_score_ = 0;
@@ -531,6 +532,8 @@ void LearnSession::load_current() {
         }
     }
     message_ = lv.goal;
+    // A scenario may open with the opponent's move (the rook sacrifice in piece value 6).
+    play_scripted_opponent();
 }
 
 std::vector<Square> LearnSession::remaining_obstacles() const {
@@ -618,7 +621,11 @@ bool LearnSession::opponent_has_unprotected_capture() const {
 
 void LearnSession::play_failure_capture() {
     LearnLevel const& lv = level();
-    if (lv.failure != FailureKind::AnyCapture && lv.failure != FailureKind::UnprotectedCapture) {
+    bool const show_any = lv.failure == FailureKind::AnyCapture;
+    bool const show_hanging =
+        lv.failure == FailureKind::UnprotectedCapture ||
+        (lv.require_defended && !Rules::in_check(board_, player_color_));
+    if (!show_any && !show_hanging) {
         return;
     }
     Color opp = opposite(player_color_);
@@ -631,7 +638,7 @@ void LearnSession::play_failure_capture() {
         if (board_.at(m.to).piece.color != player_color_) {
             continue;
         }
-        if (lv.failure == FailureKind::UnprotectedCapture && player_can_recapture(m)) {
+        if (show_hanging && !show_any && player_can_recapture(m)) {
             continue;
         }
         // Lishogi shows the punishing capture unless it would take the king.
@@ -685,7 +692,23 @@ bool LearnSession::evaluate_success() const {
     case SuccessKind::Checkmate:
         return Rules::is_checkmate(board_, Color::Gote);
     case SuccessKind::NotInCheck:
-        return !Rules::in_check(board_, player_color_);
+        if (Rules::in_check(board_, player_color_)) {
+            return false;
+        }
+        if (lv.require_defended && opponent_has_unprotected_capture()) {
+            return false;
+        }
+        if (lv.require_sq != nullptr && lv.require_sq[0] != '\0') {
+            Square s;
+            if (!parse_usi_square(lv.require_sq, s)) {
+                return false;
+            }
+            PieceSlot const& slot = board_.at(s);
+            if (!slot.occupied || slot.piece.color != player_color_) {
+                return false;
+            }
+        }
+        return true;
     case SuccessKind::NoOpponentCapture:
         return player_moves_ >= 1 && !opponent_has_capture();
     case SuccessKind::NoUnprotectedCapture:
@@ -734,21 +757,31 @@ bool LearnSession::evaluate_failure() const {
     return false;
 }
 
+void LearnSession::play_scripted_opponent() {
+    LearnLevel const& lv = level();
+    if (lv.success != SuccessKind::Scenario || lv.scenario == nullptr ||
+        scenario_i_ >= lv.scenario_count) {
+        return;
+    }
+    Color opp = opposite(player_color_);
+    ScenarioStep const& step = lv.scenario[scenario_i_];
+    if (step.color != opp) {
+        return;
+    }
+    Move m;
+    if (parse_usi_move(step.usi, board_, opp, m)) {
+        board_.apply(m, opp);
+        ++scenario_i_;
+        side_ = player_color_;
+    }
+}
+
 void LearnSession::maybe_opponent_reply() {
     LearnLevel const& lv = level();
     Color opp = opposite(player_color_);
 
-    if (lv.success == SuccessKind::Scenario && scenario_i_ < lv.scenario_count) {
-        ScenarioStep const& step = lv.scenario[scenario_i_];
-        if (step.color != opp) {
-            return;
-        }
-        Move m;
-        if (parse_usi_move(step.usi, board_, opp, m)) {
-            board_.apply(m, opp);
-            ++scenario_i_;
-            side_ = player_color_;
-        }
+    if (lv.success == SuccessKind::Scenario) {
+        play_scripted_opponent();
         return;
     }
 

@@ -54,6 +54,7 @@ ScenarioStep const scen_16_5[] = {{"6b6h+", Color::Gote}, {"7h8g", Color::Sente}
 // Piece value 4: rook, bishop, gold, silver, knight, lance, pawn.
 char const* const order_16_3[] = {"7g", "5g", "5d", "7h", "4f", "6d", "4g"};
 ScenarioStep const scen_16_7[] = {{"7f4c+", Color::Sente}, {"3b4c", Color::Gote}, {"S*3b", Color::Sente}, {"2a2b", Color::Gote}, {"3b4c+", Color::Sente}};
+ScenarioStep const scen_16_8[] = {{"S*2a", Color::Sente}};
 ScenarioStep const scen_17_0[] = {{"9i8i", Color::Sente}, {"9e8e", Color::Gote}, {"8i9i", Color::Sente}, {"8e9e", Color::Gote}, {"9i8i", Color::Sente}, {"9e8e", Color::Gote}, {"8i9i", Color::Sente}, {"8e9e", Color::Gote}, {"9i8i", Color::Sente}, {"9e8e", Color::Gote}, {"8i9i", Color::Sente}, {"8e9e", Color::Gote}};
 ScenarioStep const scen_17_1[] = {{"9f8e", Color::Sente}, {"8g7f", Color::Gote}, {"8e9f", Color::Sente}, {"7f8g", Color::Gote}, {"9f8e", Color::Sente}, {"8g7f", Color::Gote}, {"8e9f", Color::Sente}, {"7f8g", Color::Gote}, {"9f8e", Color::Sente}, {"8g7f", Color::Gote}, {"8e9f", Color::Sente}, {"7f8g", Color::Gote}};
 ScenarioStep const scen_17_2[] = {{"7f8g", Color::Gote}, {"9f8e", Color::Sente}, {"6e7f", Color::Gote}};
@@ -833,7 +834,8 @@ LearnLevel const levels_12[] = {
         FailureKind::IfNotSuccess,
         nullptr, 0,
         nullptr, 0,
-        "", PieceType::Pawn, Color::Sente, false
+        "", PieceType::Pawn, Color::Sente, false,
+        nullptr, 0, true, nullptr
     },
     {
         "Watch out for your opponent's reply!",
@@ -843,7 +845,8 @@ LearnLevel const levels_12[] = {
         FailureKind::IfNotSuccess,
         nullptr, 0,
         nullptr, 0,
-        "", PieceType::Pawn, Color::Sente, false
+        "", PieceType::Pawn, Color::Sente, false,
+        nullptr, 0, false, "3f"
     },
 };
 
@@ -1285,7 +1288,7 @@ LearnLevel const levels_16[] = {
         SuccessKind::Scenario,
         FailureKind::Scenario,
         nullptr, 0,
-        nullptr, 0,
+        scen_16_8, 1,
         "", PieceType::Pawn, Color::Sente, false
     },
 };
